@@ -1,0 +1,22 @@
+# BasicOriginsWebhookSubscriptionFlow
+
+main: kit: flow: BasicOriginsWebhookSubscriptionFlow:
+{
+  entity: "origins_webhook_subscription",
+  kind: "basic",
+  name: "BasicOriginsWebhookSubscriptionFlow",
+  step: [
+    {
+      input: {
+        ref: "origins_webhook_subscription_ref01"
+      }
+
+      match: {
+        app_id: "app01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicOriginsWebhookSubscriptionFlow"
+}

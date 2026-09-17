@@ -1,0 +1,7 @@
+# Entity Models
+
+@"./advanced.aon"
+@"./basic.aon"
+@"./origins_collection_response_ip_range_no_paging.aon"
+@"./origins_collection_response_webhook_subscription_no_paging.aon"
+@"./origins_webhook_subscription.aon"

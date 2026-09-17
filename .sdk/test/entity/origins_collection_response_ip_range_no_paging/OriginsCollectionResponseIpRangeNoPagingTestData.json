@@ -1,0 +1,304 @@
+{
+  "existing": {
+    "origins_collection_response_ip_range_no_paging": {
+      "ORIGINS_COLLECTION_RESPONSE_IP_RANGE_NO_PAGING00": {
+        "cidr": "s28",
+        "description": "s29",
+        "direction": "s2a",
+        "service": "s2b"
+      },
+      "ORIGINS_COLLECTION_RESPONSE_IP_RANGE_NO_PAGING01": {
+        "cidr": "s50",
+        "description": "s51",
+        "direction": "s52",
+        "service": "s53"
+      },
+      "ORIGINS_COLLECTION_RESPONSE_IP_RANGE_NO_PAGING02": {
+        "cidr": "s78",
+        "description": "s79",
+        "direction": "s7a",
+        "service": "s7b"
+      }
+    }
+  },
+  "new": {
+    "origins_collection_response_ip_range_no_paging": {
+      "origins_collection_response_ip_range_no_paging_ref01": {
+        "cidr": "sa0",
+        "description": "sa1",
+        "direction": "sa2",
+        "service": "sa3"
+      }
+    }
+  },
+  "requests": {
+    "GET /meta/network-origins/2026-09/ip-ranges": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "get-/meta/network-origins/2026-09/ip-ranges_/meta/network-origins/2026-09-beta/ip-ranges",
+        "parameters": [
+          {
+            "description": "An array of directions to filter the IP ranges. Valid values are INGRESS and EGRESS.",
+            "explode": true,
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "schema": {
+              "example": null,
+              "items": {
+                "enum": [
+                  "INGRESS",
+                  "EGRESS"
+                ],
+                "example": null,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "style": "form"
+          },
+          {
+            "description": "An array of services to filter the IP ranges. Valid values are EMAIL, API, DNS, WEB_SCRAPING, and TEST_SERVICE.",
+            "explode": true,
+            "in": "query",
+            "name": "service",
+            "required": false,
+            "schema": {
+              "example": null,
+              "items": {
+                "enum": [
+                  "EMAIL",
+                  "API",
+                  "DNS",
+                  "WEB_SCRAPING",
+                  "TEST_SERVICE"
+                ],
+                "example": null,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "style": "form"
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": null,
+                "schema": {
+                  "example": null,
+                  "properties": {
+                    "results": {
+                      "description": "An array of IpRange objects, each representing a specific IP range with associated metadata such as CIDR, direction, service, and description.",
+                      "example": null,
+                      "items": {
+                        "example": null,
+                        "properties": {
+                          "cidr": {
+                            "description": "The CIDR notation representing the IP range.",
+                            "example": null,
+                            "type": "string"
+                          },
+                          "description": {
+                            "description": "A description of the IP range.",
+                            "example": null,
+                            "type": "string"
+                          },
+                          "direction": {
+                            "description": "The direction of the IP traffic, which can be INGRESS or EGRESS.",
+                            "enum": [
+                              "EGRESS",
+                              "INGRESS"
+                            ],
+                            "example": null,
+                            "type": "string"
+                          },
+                          "service": {
+                            "description": "The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING.",
+                            "enum": [
+                              "API",
+                              "DNS",
+                              "EMAIL",
+                              "TEST_SERVICE",
+                              "WEB_SCRAPING"
+                            ],
+                            "example": null,
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "cidr",
+                          "description",
+                          "direction",
+                          "service"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "results"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "successful operation"
+          },
+          "default": {
+            "content": {
+              "*/*": {
+                "example": null,
+                "schema": {
+                  "description": "Represents an error response returned by the API when an operation fails. This component is used in various endpoints to provide detailed information about the error encountered.",
+                  "example": {
+                    "category": "VALIDATION_ERROR",
+                    "correlationId": "aeb5f871-7f07-4993-9211-075dc63e7cbf",
+                    "links": {
+                      "knowledge-base": "https://www.hubspot.com/products/service/knowledge-base"
+                    },
+                    "message": "Invalid input (details will vary based on the error)"
+                  },
+                  "properties": {
+                    "category": {
+                      "description": "The error category",
+                      "example": null,
+                      "type": "string"
+                    },
+                    "context": {
+                      "additionalProperties": {
+                        "example": null,
+                        "items": {
+                          "example": null,
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "description": "Context about the error condition",
+                      "example": "{invalidPropertyName=[propertyValue], missingScopes=[scope1, scope2]}",
+                      "type": "object"
+                    },
+                    "correlationId": {
+                      "description": "A unique identifier for the request. Include this value with any error reports or support tickets",
+                      "example": "aeb5f871-7f07-4993-9211-075dc63e7cbf",
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    "errors": {
+                      "description": "further information about the error",
+                      "example": null,
+                      "items": {
+                        "description": "Represents detailed information about an error that occurred in the API. This component is used to provide additional context and specifics about errors, typically as part of an error response.",
+                        "example": null,
+                        "properties": {
+                          "code": {
+                            "description": "The status code associated with the error detail",
+                            "example": null,
+                            "type": "string"
+                          },
+                          "context": {
+                            "additionalProperties": {
+                              "example": null,
+                              "items": {
+                                "example": null,
+                                "type": "string"
+                              },
+                              "type": "array"
+                            },
+                            "description": "Context about the error condition",
+                            "example": "{missingScopes=[scope1, scope2]}",
+                            "type": "object"
+                          },
+                          "in": {
+                            "description": "The name of the field or parameter in which the error was found.",
+                            "example": null,
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "A human readable message describing the error along with remediation steps where appropriate",
+                            "example": null,
+                            "type": "string"
+                          },
+                          "subCategory": {
+                            "description": "A specific category that contains more specific detail about the error",
+                            "example": null,
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "message"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "links": {
+                      "additionalProperties": {
+                        "example": null,
+                        "type": "string"
+                      },
+                      "description": "A map of link names to associated URIs containing documentation about the error or recommended remediation steps",
+                      "example": null,
+                      "type": "object"
+                    },
+                    "message": {
+                      "description": "A human readable message describing the error along with remediation steps where appropriate",
+                      "example": "An error occurred",
+                      "type": "string"
+                    },
+                    "subCategory": {
+                      "description": "A specific category that contains more specific detail about the error",
+                      "example": null,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "category",
+                    "correlationId",
+                    "message"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "securitySchemes": {
+          "developer_hapikey": {
+            "in": "query",
+            "name": "hapikey",
+            "type": "apiKey"
+          },
+          "oauth2": {
+            "flows": {
+              "authorizationCode": {
+                "authorizationUrl": "https://app.hubspot.com/oauth/authorize",
+                "scopes": {
+                  "origins.ip_ranges.webhook.read": "",
+                  "origins.ip_ranges.webhook.write": ""
+                },
+                "tokenUrl": "https://api.hubapi.com/oauth/v1/token"
+              }
+            },
+            "type": "oauth2"
+          },
+          "private_apps": {
+            "in": "header",
+            "name": "private-app",
+            "type": "apiKey"
+          },
+          "private_apps_legacy": {
+            "in": "header",
+            "name": "private-app-legacy",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
+  }
+}
