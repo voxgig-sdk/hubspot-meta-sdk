@@ -70,7 +70,7 @@ const __1 = require("..");
 const SDK_NAME = 'HubspotMetaSDK';
 // A fixture for every entity, so list()/load() resolve offline with no
 // network. Snippet client construction is rewritten to seed this.
-const TEST_SEED = { "entity": { "advanced": { "test01": { "id": "test01" } }, "basic": { "test01": { "id": "test01" } }, "origins_collection_response_ip_range_no_paging": { "test01": { "id": "test01" } }, "origins_collection_response_webhook_subscription_no_paging": { "test01": { "id": "test01" } }, "origins_webhook_subscription": { "test01": { "id": "test01" } } } };
+const TEST_SEED = { "entity": { "advanced": { "test01": { "id": "test01" } }, "basic": { "test01": { "id": "test01" } }, "origins_collection_response_webhook_subscription_no_paging": { "test01": { "id": "test01" } }, "origins_ip_range": { "test01": { "id": "test01" } }, "webhook_subscription": { "test01": { "id": "test01" } } } };
 const SEED_ARG = JSON.stringify(TEST_SEED);
 const SEEDED_CTOR = SDK_NAME + '.test(' + SEED_ARG + ')';
 // The three docs this gate covers, resolved relative to dist-test/.

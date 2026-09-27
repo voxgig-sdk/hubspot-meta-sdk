@@ -264,7 +264,6 @@ func (sdk *HubspotMetaSDK) rawRequest(fetchargs map[string]any) (map[string]any,
 		if !noBody {
 			if jf := vs.GetProp(fm, "json"); jf != nil {
 				if f, ok := jf.(func() any); ok {
-					// f() returns nil on parse error in our fetcher.
 					jsonData = f()
 				}
 			}
@@ -281,17 +280,6 @@ func (sdk *HubspotMetaSDK) rawRequest(fetchargs map[string]any) (map[string]any,
 	return map[string]any{"ok": false, "err": ctx.MakeError("direct_invalid", "invalid response type")}, nil
 }
 
-// Raw GraphQL access: the pressure valve that makes the generated surface's
-// deliberate omissions (per-call selection sets, typed filter builders,
-// batching, subscriptions) livable — the whole schema stays reachable.
-//
-// Thin wrapper over the same prepare/fetch path Direct uses, with the one
-// thing raw Direct cannot do for GraphQL: a GraphQL failure rides HTTP 200
-// as a top-level `errors` array, so status alone would report a failed query
-// as ok.
-//
-// NOTE: like Direct, this bypasses the feature pipeline — no retry,
-// ratelimit or paging features apply.
 func (sdk *HubspotMetaSDK) Graphql(
 	query string, variables map[string]any, ctrl map[string]any,
 ) (map[string]any, error) {
@@ -354,14 +342,6 @@ func (sdk *HubspotMetaSDK) Basic(data map[string]any) HubspotMetaEntity {
 }
 
 
-// OriginsCollectionResponseIpRangeNoPaging returns a OriginsCollectionResponseIpRangeNoPaging entity bound to this client.
-// Idiomatic usage: client.OriginsCollectionResponseIpRangeNoPaging(nil).List(nil, nil) or
-// client.OriginsCollectionResponseIpRangeNoPaging(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *HubspotMetaSDK) OriginsCollectionResponseIpRangeNoPaging(data map[string]any) HubspotMetaEntity {
-	return NewOriginsCollectionResponseIpRangeNoPagingEntityFunc(sdk, data)
-}
-
-
 // OriginsCollectionResponseWebhookSubscriptionNoPaging returns a OriginsCollectionResponseWebhookSubscriptionNoPaging entity bound to this client.
 // Idiomatic usage: client.OriginsCollectionResponseWebhookSubscriptionNoPaging(nil).List(nil, nil) or
 // client.OriginsCollectionResponseWebhookSubscriptionNoPaging(nil).Load(map[string]any{"id": ...}, nil).
@@ -370,11 +350,19 @@ func (sdk *HubspotMetaSDK) OriginsCollectionResponseWebhookSubscriptionNoPaging(
 }
 
 
-// OriginsWebhookSubscription returns a OriginsWebhookSubscription entity bound to this client.
-// Idiomatic usage: client.OriginsWebhookSubscription(nil).List(nil, nil) or
-// client.OriginsWebhookSubscription(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *HubspotMetaSDK) OriginsWebhookSubscription(data map[string]any) HubspotMetaEntity {
-	return NewOriginsWebhookSubscriptionEntityFunc(sdk, data)
+// OriginsIpRange returns a OriginsIpRange entity bound to this client.
+// Idiomatic usage: client.OriginsIpRange(nil).List(nil, nil) or
+// client.OriginsIpRange(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *HubspotMetaSDK) OriginsIpRange(data map[string]any) HubspotMetaEntity {
+	return NewOriginsIpRangeEntityFunc(sdk, data)
+}
+
+
+// WebhookSubscription returns a WebhookSubscription entity bound to this client.
+// Idiomatic usage: client.WebhookSubscription(nil).List(nil, nil) or
+// client.WebhookSubscription(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *HubspotMetaSDK) WebhookSubscription(data map[string]any) HubspotMetaEntity {
+	return NewWebhookSubscriptionEntityFunc(sdk, data)
 }
 
 

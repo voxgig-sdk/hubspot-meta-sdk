@@ -1,7 +1,7 @@
 // Typed models for the HubspotMeta SDK (JSDoc typedefs).
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Annotations only — no runtime effect. Do not
 // edit by hand.
@@ -34,20 +34,6 @@
  */
 
 /**
- * @typedef {Object} OriginsCollectionResponseIpRangeNoPaging
- * @property {string} cidr
- * @property {string} description
- * @property {string} direction
- * @property {string} service
- */
-
-/**
- * @typedef {Object} OriginsCollectionResponseIpRangeNoPagingListMatch
- * @property {Array} [direction]
- * @property {Array} [service]
- */
-
-/**
  * @typedef {Object} OriginsCollectionResponseWebhookSubscriptionNoPaging
  * @property {Array} results
  */
@@ -58,13 +44,27 @@
  */
 
 /**
- * @typedef {Object} OriginsWebhookSubscription
+ * @typedef {Object} OriginsIpRange
+ * @property {string} cidr
+ * @property {string} description
+ * @property {string} direction
+ * @property {string} service
+ */
+
+/**
+ * @typedef {Object} OriginsIpRangeListMatch
+ * @property {Array} [direction]
+ * @property {Array} [service]
+ */
+
+/**
+ * @typedef {Object} WebhookSubscription
  * @property {string} [id]
  * @property {string} webhookUrl
  */
 
 /**
- * @typedef {Object} OriginsWebhookSubscriptionCreateData
+ * @typedef {Object} WebhookSubscriptionCreateData
  * @property {string} id
  * @property {string} webhookUrl
  */

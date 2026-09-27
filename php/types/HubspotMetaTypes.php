@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 // Typed models for the HubspotMeta SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 //
@@ -44,22 +44,6 @@ class BasicRemoveMatch
     public int $subscription_id;
 }
 
-/** OriginsCollectionResponseIpRangeNoPaging entity data model. */
-class OriginsCollectionResponseIpRangeNoPaging
-{
-    public string $cidr;
-    public string $description;
-    public string $direction;
-    public string $service;
-}
-
-/** Request payload for OriginsCollectionResponseIpRangeNoPaging#list. */
-class OriginsCollectionResponseIpRangeNoPagingListMatch
-{
-    public ?array $direction = null;
-    public ?array $service = null;
-}
-
 /** OriginsCollectionResponseWebhookSubscriptionNoPaging entity data model. */
 class OriginsCollectionResponseWebhookSubscriptionNoPaging
 {
@@ -72,15 +56,31 @@ class OriginsCollectionResponseWebhookSubscriptionNoPagingLoadMatch
     public string $app_id;
 }
 
-/** OriginsWebhookSubscription entity data model. */
-class OriginsWebhookSubscription
+/** OriginsIpRange entity data model. */
+class OriginsIpRange
+{
+    public string $cidr;
+    public string $description;
+    public string $direction;
+    public string $service;
+}
+
+/** Request payload for OriginsIpRange#list. */
+class OriginsIpRangeListMatch
+{
+    public ?array $direction = null;
+    public ?array $service = null;
+}
+
+/** WebhookSubscription entity data model. */
+class WebhookSubscription
 {
     public ?string $id = null;
     public string $webhookUrl;
 }
 
-/** Request payload for OriginsWebhookSubscription#create. */
-class OriginsWebhookSubscriptionCreateData
+/** Request payload for WebhookSubscription#create. */
+class WebhookSubscriptionCreateData
 {
     public string $id;
     public string $webhookUrl;

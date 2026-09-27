@@ -1,0 +1,22 @@
+# BasicOriginsIpRangeFlow
+
+main: kit: flow: BasicOriginsIpRangeFlow:
+{
+  entity: "origins_ip_range",
+  kind: "basic",
+  name: "BasicOriginsIpRangeFlow",
+  step: [
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "origins_ip_range_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicOriginsIpRangeFlow"
+}

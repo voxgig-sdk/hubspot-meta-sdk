@@ -1,0 +1,102 @@
+# Entity: origins_ip_range
+
+main: kit: entity: origins_ip_range: {
+
+  alias: field: {}
+
+  fields: {
+    cidr: {
+      h: "Cidr"
+      n: "cidr"
+      r: true
+      sh: "The CIDR notation representing the IP range."
+      t: "`$STRING`"
+    }
+    description: {
+      h: "Description"
+      n: "description"
+      r: true
+      sh: "A description of the IP range."
+      t: "`$STRING`"
+    }
+    direction: {
+      h: "Direction"
+      n: "direction"
+      r: true
+      sh: "The direction of the IP traffic, which can be INGRESS or EGRESS."
+      t: "`$STRING`"
+    }
+    service: {
+      h: "Service"
+      n: "service"
+      r: true
+      sh: "The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING."
+      t: "`$STRING`"
+    }
+  }
+
+  name: "origins_ip_range"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /meta/network-origins/2026-09/ip-ranges"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: null
+                k: "query"
+                n: "direction"
+                or: "direction"
+                r: false
+                t: "`$ARRAY`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "service"
+                or: "service"
+                r: false
+                t: "`$ARRAY`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/meta/network-origins/2026-09/ip-ranges"
+          q: {
+            exist: [
+              "direction"
+              "service"
+            ]
+          }
+          s: [
+            {
+              lit: "meta"
+            }
+            {
+              lit: "network-origins"
+            }
+            {
+              lit: "2026-09"
+            }
+            {
+              lit: "ip-ranges"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.results`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

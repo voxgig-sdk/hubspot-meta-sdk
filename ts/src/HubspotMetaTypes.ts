@@ -1,7 +1,7 @@
 // Typed models for the HubspotMeta SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
@@ -27,18 +27,6 @@ export interface BasicRemoveMatch {
   subscription_id: number
 }
 
-export interface OriginsCollectionResponseIpRangeNoPaging {
-  cidr: string
-  description: string
-  direction: string
-  service: string
-}
-
-export interface OriginsCollectionResponseIpRangeNoPagingListMatch {
-  direction?: any[]
-  service?: any[]
-}
-
 export interface OriginsCollectionResponseWebhookSubscriptionNoPaging {
   results: any[]
 }
@@ -47,12 +35,24 @@ export interface OriginsCollectionResponseWebhookSubscriptionNoPagingLoadMatch {
   app_id: string
 }
 
-export interface OriginsWebhookSubscription {
+export interface OriginsIpRange {
+  cidr: string
+  description: string
+  direction: string
+  service: string
+}
+
+export interface OriginsIpRangeListMatch {
+  direction?: any[]
+  service?: any[]
+}
+
+export interface WebhookSubscription {
   id?: string
   webhookUrl: string
 }
 
-export interface OriginsWebhookSubscriptionCreateData {
+export interface WebhookSubscriptionCreateData {
   id: string
   webhookUrl: string
 }

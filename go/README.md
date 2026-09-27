@@ -69,12 +69,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-originscollectionresponsewebhooksubscriptionnopaging, err := client.OriginsCollectionResponseWebhookSubscriptionNoPaging(nil).Load(map[string]any{"app_id": "example"}, nil)
+basic, err := client.Basic(nil).Load(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = originscollectionresponsewebhooksubscriptionnopaging
+_ = basic
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -138,13 +138,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-originsCollectionResponseWebhookSubscriptionNoPaging, err := client.OriginsCollectionResponseWebhookSubscriptionNoPaging(nil).Load(
-    map[string]any{"app_id": "example"}, nil,
+basic, err := client.Basic(nil).Load(
+    nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(originsCollectionResponseWebhookSubscriptionNoPaging) // the returned mock data
+fmt.Println(basic) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -225,9 +225,9 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
 | `Advanced` | `(data map[string]any) HubspotMetaEntity` | Create an Advanced entity instance. |
 | `Basic` | `(data map[string]any) HubspotMetaEntity` | Create a Basic entity instance. |
-| `OriginsCollectionResponseIpRangeNoPaging` | `(data map[string]any) HubspotMetaEntity` | Create an OriginsCollectionResponseIpRangeNoPaging entity instance. |
 | `OriginsCollectionResponseWebhookSubscriptionNoPaging` | `(data map[string]any) HubspotMetaEntity` | Create an OriginsCollectionResponseWebhookSubscriptionNoPaging entity instance. |
-| `OriginsWebhookSubscription` | `(data map[string]any) HubspotMetaEntity` | Create an OriginsWebhookSubscription entity instance. |
+| `OriginsIpRange` | `(data map[string]any) HubspotMetaEntity` | Create an OriginsIpRange entity instance. |
+| `WebhookSubscription` | `(data map[string]any) HubspotMetaEntity` | Create a WebhookSubscription entity instance. |
 
 ### Entity interface (HubspotMetaEntity)
 
@@ -286,7 +286,17 @@ Operations: Load, Remove.
 
 API path: `/meta/network-origins/2026-09/ip-ranges/simple`
 
-#### OriginsCollectionResponseIpRangeNoPaging
+#### OriginsCollectionResponseWebhookSubscriptionNoPaging
+
+| Field | Description |
+| --- | --- |
+| `"results"` | An array of webhook subscriptions. |
+
+Operations: Load.
+
+API path: `/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}`
+
+#### OriginsIpRange
 
 | Field | Description |
 | --- | --- |
@@ -299,17 +309,7 @@ Operations: List.
 
 API path: `/meta/network-origins/2026-09/ip-ranges`
 
-#### OriginsCollectionResponseWebhookSubscriptionNoPaging
-
-| Field | Description |
-| --- | --- |
-| `"results"` | An array of webhook subscriptions. |
-
-Operations: Load.
-
-API path: `/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}`
-
-#### OriginsWebhookSubscription
+#### WebhookSubscription
 
 | Field | Description |
 | --- | --- |
@@ -377,36 +377,6 @@ fmt.Println(basic) // the loaded record
 ```
 
 
-### OriginsCollectionResponseIpRangeNoPaging
-
-Create an instance: `originsCollectionResponseIpRangeNoPaging := client.OriginsCollectionResponseIpRangeNoPaging(nil)`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `List(match, ctrl)` | List entities matching the criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `cidr` | `string` | The CIDR notation representing the IP range. |
-| `description` | `string` | A description of the IP range. |
-| `direction` | `string` | The direction of the IP traffic, which can be INGRESS or EGRESS. |
-| `service` | `string` | The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING. |
-
-#### Example: List
-
-```go
-originsCollectionResponseIpRangeNoPagings, err := client.OriginsCollectionResponseIpRangeNoPaging(nil).List(nil, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(originsCollectionResponseIpRangeNoPagings) // the array of records
-```
-
-
 ### OriginsCollectionResponseWebhookSubscriptionNoPaging
 
 Create an instance: `originsCollectionResponseWebhookSubscriptionNoPaging := client.OriginsCollectionResponseWebhookSubscriptionNoPaging(nil)`
@@ -434,9 +404,39 @@ fmt.Println(originsCollectionResponseWebhookSubscriptionNoPaging) // the loaded 
 ```
 
 
-### OriginsWebhookSubscription
+### OriginsIpRange
 
-Create an instance: `originsWebhookSubscription := client.OriginsWebhookSubscription(nil)`
+Create an instance: `originsIpRange := client.OriginsIpRange(nil)`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `List(match, ctrl)` | List entities matching the criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `cidr` | `string` | The CIDR notation representing the IP range. |
+| `description` | `string` | A description of the IP range. |
+| `direction` | `string` | The direction of the IP traffic, which can be INGRESS or EGRESS. |
+| `service` | `string` | The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING. |
+
+#### Example: List
+
+```go
+originsIpRanges, err := client.OriginsIpRange(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(originsIpRanges) // the array of records
+```
+
+
+### WebhookSubscription
+
+Create an instance: `webhookSubscription := client.WebhookSubscription(nil)`
 
 #### Operations
 
@@ -454,7 +454,7 @@ Create an instance: `originsWebhookSubscription := client.OriginsWebhookSubscrip
 #### Example: Create
 
 ```go
-result, err := client.OriginsWebhookSubscription(nil).Create(map[string]any{
+result, err := client.WebhookSubscription(nil).Create(map[string]any{
     "id": "example_id",
     "webhookUrl": "example_webhookUrl",
 }, nil)
@@ -475,14 +475,14 @@ above:
 
 | Feature | What it does |
 |---|---|
-| [`debug`](#debug) | Request/response capture ring buffer for debugging |
-| [`idempotency`](#idempotency) | Idempotency keys for safe retries of mutating operations |
-| [`metrics`](#metrics) | Statistics capture: per-operation counters and latency |
-| [`paging`](#paging) | Pagination signals for list operations |
-| [`ratelimit`](#ratelimit) | Client-side rate limiting via a token bucket |
-| [`retry`](#retry) | Automatic retry of transient failures with exponential backoff |
-| [`test`](#test) | In-memory mock transport for testing without a live server |
-| [`timeout`](#timeout) | Per-request timeout with transport abort |
+| [`debug`](#debug) | Debug capture |
+| [`idempotency`](#idempotency) | Idempotency |
+| [`metrics`](#metrics) | Metrics |
+| [`paging`](#paging) | Paging |
+| [`ratelimit`](#ratelimit) | Rate limiting |
+| [`retry`](#retry) | Retry |
+| [`test`](#test) | Test transport |
+| [`timeout`](#timeout) | Timeout |
 
 > **Order matters for `ratelimit`, `retry`, `timeout`.** These wrap the
 > transport, so each one wraps whatever is already installed: the order you
@@ -491,7 +491,7 @@ above:
 
 ### debug
 
-Request/response capture ring buffer for debugging.
+Debug capture.
 
 | Option | Default |
 |---|---|
@@ -503,7 +503,7 @@ Set `feature.debug.active` to enable it, then override any of the options above.
 
 ### idempotency
 
-Idempotency keys for safe retries of mutating operations.
+Idempotency.
 
 | Option | Default |
 |---|---|
@@ -516,7 +516,7 @@ Set `feature.idempotency.active` to enable it, then override any of the options 
 
 ### metrics
 
-Statistics capture: per-operation counters and latency.
+Metrics.
 
 | Option | Default |
 |---|---|
@@ -526,7 +526,7 @@ Set `feature.metrics.active` to enable it, then override any of the options abov
 
 ### paging
 
-Pagination signals for list operations.
+Paging.
 
 | Option | Default |
 |---|---|
@@ -542,7 +542,7 @@ Set `feature.paging.active` to enable it, then override any of the options above
 
 ### ratelimit
 
-Client-side rate limiting via a token bucket.
+Rate limiting.
 
 | Option | Default |
 |---|---|
@@ -558,7 +558,7 @@ activated earlier.
 
 ### retry
 
-Automatic retry of transient failures with exponential backoff.
+Retry.
 
 | Option | Default |
 |---|---|
@@ -577,7 +577,7 @@ activated earlier.
 
 ### test
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 | Option | Default |
 |---|---|
@@ -587,7 +587,7 @@ Set `feature.test.active` to enable it, then override any of the options above.
 
 ### timeout
 
-Per-request timeout with transport abort.
+Timeout.
 
 | Option | Default |
 |---|---|
@@ -639,14 +639,14 @@ stage names.
 
 The SDK ships with built-in features:
 
-- **DebugFeature**: Request/response capture ring buffer for debugging
-- **IdempotencyFeature**: Idempotency keys for safe retries of mutating operations
-- **MetricsFeature**: Statistics capture: per-operation counters and latency
-- **PagingFeature**: Pagination signals for list operations
-- **RatelimitFeature**: Client-side rate limiting via a token bucket
-- **RetryFeature**: Automatic retry of transient failures with exponential backoff
-- **TestFeature**: In-memory mock transport for testing without a live server
-- **TimeoutFeature**: Per-request timeout with transport abort
+- **DebugFeature**: Debug capture
+- **IdempotencyFeature**: Idempotency
+- **MetricsFeature**: Metrics
+- **PagingFeature**: Paging
+- **RatelimitFeature**: Rate limiting
+- **RetryFeature**: Retry
+- **TestFeature**: Test transport
+- **TimeoutFeature**: Timeout
 
 Features are initialized in order. Hooks fire in the order features
 were added, so later features can override earlier ones.
@@ -681,11 +681,11 @@ Entity instances are stateful. After a successful `Load`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-originscollectionresponsewebhooksubscriptionnopaging := client.OriginsCollectionResponseWebhookSubscriptionNoPaging(nil)
-originscollectionresponsewebhooksubscriptionnopaging.Load(map[string]any{"app_id": "example"}, nil)
+basic := client.Basic(nil)
+basic.Load(nil, nil)
 
-// originscollectionresponsewebhooksubscriptionnopaging.Data() now returns the originscollectionresponsewebhooksubscriptionnopaging data from the last load
-// originscollectionresponsewebhooksubscriptionnopaging.Match() returns the last match criteria
+// basic.Data() now returns the basic data from the last load
+// basic.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

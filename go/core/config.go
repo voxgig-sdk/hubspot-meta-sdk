@@ -160,9 +160,9 @@ func MakeConfig() map[string]any {
 			"entity": map[string]any{
 				"advanced": map[string]any{},
 				"basic": map[string]any{},
-				"origins_collection_response_ip_range_no_paging": map[string]any{},
 				"origins_collection_response_webhook_subscription_no_paging": map[string]any{},
-				"origins_webhook_subscription": map[string]any{},
+				"origins_ip_range": map[string]any{},
+				"webhook_subscription": map[string]any{},
 			},
 		},
 		"entity": map[string]any{
@@ -175,35 +175,9 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": nil,
-											"kind": "param",
-											"name": "subscription_id",
-											"orig": "subscription_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "param",
-											"name": "webhook_subscription_id",
-											"orig": "app_id",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}/{subscription-id}/test",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"appId": "webhook_subscription_id",
-										"subscription-id": "subscription_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "meta",
@@ -230,16 +204,6 @@ func MakeConfig() map[string]any {
 										"lit": "test",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"subscription_id",
-										"webhook_subscription_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"meta",
 									"network-origins",
@@ -250,6 +214,42 @@ func MakeConfig() map[string]any {
 									"{subscription_id}",
 									"test",
 								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"appId": "webhook_subscription_id",
+										"subscription-id": "subscription_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "subscription_id",
+											"orig": "subscription_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+											"example": nil,
+										},
+										map[string]any{
+											"name": "webhook_subscription_id",
+											"orig": "app_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": nil,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"subscription_id",
+										"webhook_subscription_id",
+									},
+								},
 							},
 						},
 					},
@@ -257,7 +257,7 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"webhook_subscription",
+							"$.main.kit.entity.webhook_subscription",
 						},
 					},
 				},
@@ -266,6 +266,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 				},
@@ -285,24 +286,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "direction",
-											"orig": "direction",
-											"type": "`$ARRAY`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "service",
-											"orig": "service",
-											"type": "`$ARRAY`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/meta/network-origins/2026-09/ip-ranges/simple",
@@ -323,22 +306,41 @@ func MakeConfig() map[string]any {
 										"lit": "simple",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"direction",
-										"service",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"meta",
 									"network-origins",
 									"2026-09",
 									"ip-ranges",
 									"simple",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "direction",
+											"orig": "direction",
+											"type": "`$ARRAY`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "service",
+											"orig": "service",
+											"type": "`$ARRAY`",
+											"kind": "query",
+											"example": nil,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"direction",
+										"service",
+									},
 								},
 							},
 						},
@@ -348,35 +350,9 @@ func MakeConfig() map[string]any {
 						"name": "remove",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": nil,
-											"kind": "param",
-											"name": "app_id",
-											"orig": "app_id",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "param",
-											"name": "subscription_id",
-											"orig": "subscription_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "DELETE",
 								"orig": "/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}/{subscription-id}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"appId": "app_id",
-										"subscription-id": "subscription_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "meta",
@@ -400,16 +376,6 @@ func MakeConfig() map[string]any {
 										"var": "subscription_id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"app_id",
-										"subscription_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"meta",
 									"network-origins",
@@ -419,6 +385,42 @@ func MakeConfig() map[string]any {
 									"{app_id}",
 									"{subscription_id}",
 								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"appId": "app_id",
+										"subscription-id": "subscription_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "app_id",
+											"orig": "app_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": nil,
+										},
+										map[string]any{
+											"name": "subscription_id",
+											"orig": "subscription_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+											"example": nil,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"app_id",
+										"subscription_id",
+									},
+								},
 							},
 						},
 					},
@@ -426,111 +428,19 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"webhook_subscription",
+							"$.main.kit.entity.webhook_subscription",
 						},
 					},
-				},
-			},
-			"origins_collection_response_ip_range_no_paging": map[string]any{
-				"fields": []any{
-					map[string]any{
-						"name": "cidr",
-						"req": true,
-						"short": "The CIDR notation representing the IP range.",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "description",
-						"req": true,
-						"short": "A description of the IP range.",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "direction",
-						"req": true,
-						"short": "The direction of the IP traffic, which can be INGRESS or EGRESS.",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "service",
-						"req": true,
-						"short": "The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING.",
-						"type": "`$STRING`",
-					},
-				},
-				"name": "origins_collection_response_ip_range_no_paging",
-				"op": map[string]any{
-					"list": map[string]any{
-						"input": "data",
-						"name": "list",
-						"points": []any{
-							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "direction",
-											"orig": "direction",
-											"type": "`$ARRAY`",
-										},
-										map[string]any{
-											"example": nil,
-											"kind": "query",
-											"name": "service",
-											"orig": "service",
-											"type": "`$ARRAY`",
-										},
-									},
-								},
-								"kind": "http",
-								"method": "GET",
-								"orig": "/meta/network-origins/2026-09/ip-ranges",
-								"segments": []any{
-									map[string]any{
-										"lit": "meta",
-									},
-									map[string]any{
-										"lit": "network-origins",
-									},
-									map[string]any{
-										"lit": "2026-09",
-									},
-									map[string]any{
-										"lit": "ip-ranges",
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"direction",
-										"service",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.results`",
-								},
-								"parts": []any{
-									"meta",
-									"network-origins",
-									"2026-09",
-									"ip-ranges",
-								},
-							},
-						},
-					},
-				},
-				"relations": map[string]any{
-					"ancestors": []any{},
 				},
 			},
 			"origins_collection_response_webhook_subscription_no_paging": map[string]any{
 				"fields": []any{
 					map[string]any{
 						"name": "results",
+						"title": "Results",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "An array of webhook subscriptions.",
-						"type": "`$ARRAY`",
 					},
 				},
 				"name": "origins_collection_response_webhook_subscription_no_paging",
@@ -540,26 +450,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": nil,
-											"kind": "param",
-											"name": "app_id",
-											"orig": "app_id",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"appId": "app_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "meta",
@@ -580,15 +473,6 @@ func MakeConfig() map[string]any {
 										"var": "app_id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"app_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"meta",
 									"network-origins",
@@ -597,6 +481,32 @@ func MakeConfig() map[string]any {
 									"webhook-subscriptions",
 									"{app_id}",
 								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"appId": "app_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "app_id",
+											"orig": "app_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": nil,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"app_id",
+									},
+								},
 							},
 						},
 					},
@@ -604,55 +514,138 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"webhook_subscription",
+							"$.main.kit.entity.webhook_subscription",
 						},
 					},
 				},
 			},
-			"origins_webhook_subscription": map[string]any{
+			"origins_ip_range": map[string]any{
+				"fields": []any{
+					map[string]any{
+						"name": "cidr",
+						"title": "Cidr",
+						"type": "`$STRING`",
+						"req": true,
+						"short": "The CIDR notation representing the IP range.",
+					},
+					map[string]any{
+						"name": "description",
+						"title": "Description",
+						"type": "`$STRING`",
+						"req": true,
+						"short": "A description of the IP range.",
+					},
+					map[string]any{
+						"name": "direction",
+						"title": "Direction",
+						"type": "`$STRING`",
+						"req": true,
+						"short": "The direction of the IP traffic, which can be INGRESS or EGRESS.",
+					},
+					map[string]any{
+						"name": "service",
+						"title": "Service",
+						"type": "`$STRING`",
+						"req": true,
+						"short": "The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING.",
+					},
+				},
+				"name": "origins_ip_range",
+				"op": map[string]any{
+					"list": map[string]any{
+						"input": "data",
+						"name": "list",
+						"points": []any{
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/meta/network-origins/2026-09/ip-ranges",
+								"segments": []any{
+									map[string]any{
+										"lit": "meta",
+									},
+									map[string]any{
+										"lit": "network-origins",
+									},
+									map[string]any{
+										"lit": "2026-09",
+									},
+									map[string]any{
+										"lit": "ip-ranges",
+									},
+								},
+								"parts": []any{
+									"meta",
+									"network-origins",
+									"2026-09",
+									"ip-ranges",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.results`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "direction",
+											"orig": "direction",
+											"type": "`$ARRAY`",
+											"kind": "query",
+											"example": nil,
+										},
+										map[string]any{
+											"name": "service",
+											"orig": "service",
+											"type": "`$ARRAY`",
+											"kind": "query",
+											"example": nil,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"direction",
+										"service",
+									},
+								},
+							},
+						},
+					},
+				},
+				"relations": map[string]any{
+					"ancestors": []any{},
+				},
+			},
+			"webhook_subscription": map[string]any{
 				"fields": []any{
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "webhookUrl",
+						"title": "Webhook Url",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The URL to which webhook events will be sent.",
-						"type": "`$STRING`",
 					},
 				},
 				"id": map[string]any{
 					"field": "id",
 					"name": "id",
 				},
-				"name": "origins_webhook_subscription",
+				"name": "webhook_subscription",
 				"op": map[string]any{
 					"create": map[string]any{
 						"input": "data",
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": nil,
-											"kind": "param",
-											"name": "id",
-											"orig": "app_id",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"appId": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "meta",
@@ -673,15 +666,6 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"meta",
 									"network-origins",
@@ -689,6 +673,32 @@ func MakeConfig() map[string]any {
 									"ip-ranges",
 									"webhook-subscriptions",
 									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"appId": "id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "app_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": nil,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},

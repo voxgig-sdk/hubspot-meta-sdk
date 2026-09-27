@@ -1,7 +1,7 @@
 # Typed models for the HubspotMeta SDK.
 #
-# GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-# params (op.<name>.points[].args.params[]). Field/param types come from the
+# GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+# params (op.<name>.points[].g.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
 #
@@ -39,18 +39,6 @@ class BasicRemoveMatch(TypedDict):
     subscription_id: int
 
 
-class OriginsCollectionResponseIpRangeNoPaging(TypedDict):
-    cidr: str
-    description: str
-    direction: str
-    service: str
-
-
-class OriginsCollectionResponseIpRangeNoPagingListMatch(TypedDict, total=False):
-    direction: list
-    service: list
-
-
 class OriginsCollectionResponseWebhookSubscriptionNoPaging(TypedDict):
     results: list
 
@@ -59,14 +47,26 @@ class OriginsCollectionResponseWebhookSubscriptionNoPagingLoadMatch(TypedDict):
     app_id: str
 
 
-class OriginsWebhookSubscriptionRequired(TypedDict):
+class OriginsIpRange(TypedDict):
+    cidr: str
+    description: str
+    direction: str
+    service: str
+
+
+class OriginsIpRangeListMatch(TypedDict, total=False):
+    direction: list
+    service: list
+
+
+class WebhookSubscriptionRequired(TypedDict):
     webhookUrl: str
 
 
-class OriginsWebhookSubscription(OriginsWebhookSubscriptionRequired, total=False):
+class WebhookSubscription(WebhookSubscriptionRequired, total=False):
     id: str
 
 
-class OriginsWebhookSubscriptionCreateData(TypedDict):
+class WebhookSubscriptionCreateData(TypedDict):
     id: str
     webhookUrl: str

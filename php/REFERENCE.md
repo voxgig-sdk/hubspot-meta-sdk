@@ -50,17 +50,17 @@ Create a new `AdvancedEntity` instance. Pass `null` for no initial data.
 
 Create a new `BasicEntity` instance. Pass `null` for no initial data.
 
-#### `OriginsCollectionResponseIpRangeNoPaging($data = null)`
-
-Create a new `OriginsCollectionResponseIpRangeNoPagingEntity` instance. Pass `null` for no initial data.
-
 #### `OriginsCollectionResponseWebhookSubscriptionNoPaging($data = null)`
 
 Create a new `OriginsCollectionResponseWebhookSubscriptionNoPagingEntity` instance. Pass `null` for no initial data.
 
-#### `OriginsWebhookSubscription($data = null)`
+#### `OriginsIpRange($data = null)`
 
-Create a new `OriginsWebhookSubscriptionEntity` instance. Pass `null` for no initial data.
+Create a new `OriginsIpRangeEntity` instance. Pass `null` for no initial data.
+
+#### `WebhookSubscription($data = null)`
+
+Create a new `WebhookSubscriptionEntity` instance. Pass `null` for no initial data.
 
 #### `options_map(): array`
 
@@ -208,61 +208,6 @@ Return the entity name.
 
 ---
 
-## OriginsCollectionResponseIpRangeNoPagingEntity
-
-```php
-$origins_collection_response_ip_range_no_paging = $client->OriginsCollectionResponseIpRangeNoPaging();
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `cidr` | `string` | Yes | The CIDR notation representing the IP range. |
-| `description` | `string` | Yes | A description of the IP range. |
-| `direction` | `string` | Yes | The direction of the IP traffic, which can be INGRESS or EGRESS. |
-| `service` | `string` | Yes | The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING. |
-
-### Operations
-
-#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
-
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
-
-```php
-$results = $client->OriginsCollectionResponseIpRangeNoPaging()->list();
-```
-
-### Common Methods
-
-#### `data_get(): array`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set($data): void`
-
-Set the entity data.
-
-#### `match_get(): array`
-
-Get the entity match criteria.
-
-#### `match_set($match): void`
-
-Set the entity match criteria.
-
-#### `make(): OriginsCollectionResponseIpRangeNoPagingEntity`
-
-Create a new `OriginsCollectionResponseIpRangeNoPagingEntity` instance with the same client and
-options.
-
-#### `get_name(): string`
-
-Return the entity name.
-
-
----
-
 ## OriginsCollectionResponseWebhookSubscriptionNoPagingEntity
 
 ```php
@@ -315,10 +260,65 @@ Return the entity name.
 
 ---
 
-## OriginsWebhookSubscriptionEntity
+## OriginsIpRangeEntity
 
 ```php
-$origins_webhook_subscription = $client->OriginsWebhookSubscription();
+$origins_ip_range = $client->OriginsIpRange();
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `cidr` | `string` | Yes | The CIDR notation representing the IP range. |
+| `description` | `string` | Yes | A description of the IP range. |
+| `direction` | `string` | Yes | The direction of the IP traffic, which can be INGRESS or EGRESS. |
+| `service` | `string` | Yes | The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING. |
+
+### Operations
+
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
+
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+
+```php
+$results = $client->OriginsIpRange()->list();
+```
+
+### Common Methods
+
+#### `data_get(): array`
+
+Get the entity data. Returns a copy of the current data.
+
+#### `data_set($data): void`
+
+Set the entity data.
+
+#### `match_get(): array`
+
+Get the entity match criteria.
+
+#### `match_set($match): void`
+
+Set the entity match criteria.
+
+#### `make(): OriginsIpRangeEntity`
+
+Create a new `OriginsIpRangeEntity` instance with the same client and
+options.
+
+#### `get_name(): string`
+
+Return the entity name.
+
+
+---
+
+## WebhookSubscriptionEntity
+
+```php
+$webhook_subscription = $client->WebhookSubscription();
 ```
 
 ### Fields
@@ -335,7 +335,7 @@ $origins_webhook_subscription = $client->OriginsWebhookSubscription();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->OriginsWebhookSubscription()->create([
+$result = $client->WebhookSubscription()->create([
   "id" => null, // string
   "webhookUrl" => null, // string
 ]);
@@ -359,9 +359,9 @@ Get the entity match criteria.
 
 Set the entity match criteria.
 
-#### `make(): OriginsWebhookSubscriptionEntity`
+#### `make(): WebhookSubscriptionEntity`
 
-Create a new `OriginsWebhookSubscriptionEntity` instance with the same client and
+Create a new `WebhookSubscriptionEntity` instance with the same client and
 options.
 
 #### `get_name(): string`
@@ -375,14 +375,14 @@ Return the entity name.
 
 | Feature | Version | Description |
 | --- | --- | --- |
-| `debug` | 0.0.1 | Request/response capture ring buffer for debugging |
-| `idempotency` | 0.0.1 | Idempotency keys for safe retries of mutating operations |
-| `metrics` | 0.0.1 | Statistics capture: per-operation counters and latency |
-| `paging` | 0.0.1 | Pagination signals for list operations |
-| `ratelimit` | 0.0.1 | Client-side rate limiting via a token bucket |
-| `retry` | 0.0.1 | Automatic retry of transient failures with exponential backoff |
-| `test` | 0.0.1 | In-memory mock transport for testing without a live server |
-| `timeout` | 0.0.1 | Per-request timeout with transport abort |
+| `debug` | 0.0.1 | Debug capture |
+| `idempotency` | 0.0.1 | Idempotency |
+| `metrics` | 0.0.1 | Metrics |
+| `paging` | 0.0.1 | Paging |
+| `ratelimit` | 0.0.1 | Rate limiting |
+| `retry` | 0.0.1 | Retry |
+| `test` | 0.0.1 | Test transport |
+| `timeout` | 0.0.1 | Timeout |
 
 
 Features are activated via the `feature` option:
@@ -428,7 +428,7 @@ rather than the transport, so their order does not affect what they observe.
 
 #### `debug`
 
-Request/response capture ring buffer for debugging.
+Debug capture.
 
 **Configuration**
 
@@ -459,7 +459,7 @@ its default unless you name it.
 
 #### `idempotency`
 
-Idempotency keys for safe retries of mutating operations.
+Idempotency.
 
 **Configuration**
 
@@ -490,7 +490,7 @@ its default unless you name it.
 
 #### `metrics`
 
-Statistics capture: per-operation counters and latency.
+Metrics.
 
 **Configuration**
 
@@ -518,7 +518,7 @@ its default unless you name it.
 
 #### `paging`
 
-Pagination signals for list operations.
+Paging.
 
 **Configuration**
 
@@ -553,7 +553,7 @@ its default unless you name it.
 
 #### `ratelimit`
 
-Client-side rate limiting via a token bucket.
+Rate limiting.
 
 **Configuration**
 
@@ -584,7 +584,7 @@ its default unless you name it.
 
 #### `retry`
 
-Automatic retry of transient failures with exponential backoff.
+Retry.
 
 **Configuration**
 
@@ -618,7 +618,7 @@ its default unless you name it.
 
 #### `test`
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 **Configuration**
 
@@ -649,7 +649,7 @@ its default unless you name it.
 
 #### `timeout`
 
-Per-request timeout with transport abort.
+Timeout.
 
 **Configuration**
 

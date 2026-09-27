@@ -27,8 +27,8 @@ Tool-call arguments (what an agent sends):
 
 ```jsonc
 // hubspot-meta_list: first page of records
-{ "entity": "origins_collection_response_ip_range_no_paging" }
-{ "entity": "origins_collection_response_ip_range_no_paging", "query": { } }
+{ "entity": "origins_ip_range" }
+{ "entity": "origins_ip_range", "query": { } }
 
 // hubspot-meta_load: one record by id
 { "entity": "basic", "query": { "id": 1 } }
@@ -60,8 +60,8 @@ Tool-call arguments (what an agent sends):
    ```
 
 4. **Restart Claude Code.** The `hubspot-meta_list` and `hubspot-meta_load` tools now appear
-   in new sessions. Ask the agent to *"list origins_collection_response_ip_range_no_paging using hubspot-meta"*
-   and it calls `hubspot-meta_list` with `{"entity":"origins_collection_response_ip_range_no_paging"}`.
+   in new sessions. Ask the agent to *"list origins_ip_range using hubspot-meta"*
+   and it calls `hubspot-meta_list` with `{"entity":"origins_ip_range"}`.
 
 ## How-to guides
 
@@ -92,7 +92,7 @@ Args: `entity` (required), `query` (optional filter map). Returns the first
 page of records as JSON:
 
 ```jsonc
-{ "entity": "origins_collection_response_ip_range_no_paging" }
+{ "entity": "origins_ip_range" }
 ```
 
 ### Call the `hubspot-meta_load` tool
@@ -153,7 +153,7 @@ JSON schemas are emitted by the SDK from the `Args` struct's `json` /
 
 The 5 entities valid as the `entity` argument:
 
-advanced | basic | origins_collection_response_ip_range_no_paging | origins_collection_response_webhook_subscription_no_paging | origins_webhook_subscription
+advanced | basic | origins_collection_response_webhook_subscription_no_paging | origins_ip_range | webhook_subscription
 
 ### Smoke test via HTTP (raw JSON-RPC)
 

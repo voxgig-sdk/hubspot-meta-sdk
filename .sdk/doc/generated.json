@@ -1,7 +1,18 @@
 {
+  "version": 2,
+  "roots": [
+    ".github/workflows/docgen.yml",
+    ".sdk/admin/setup-github-pages.sh",
+    ".sdk/doc/generated.json",
+    ".sdk/doc/qa",
+    ".sdk/doc/qa-manifest.json",
+    "SUMMARY.md",
+    "docs"
+  ],
   "files": [
     ".github/workflows/docgen.yml",
     ".sdk/admin/setup-github-pages.sh",
+    ".sdk/doc/generated.json",
     ".sdk/doc/qa-manifest.json",
     ".sdk/doc/qa/STYLE-GUIDE.md",
     ".sdk/doc/qa/pages-job.yml",
@@ -15,9 +26,9 @@
     "docs/api/advanced.html",
     "docs/api/basic.html",
     "docs/api/index.html",
-    "docs/api/origins_collection_response_ip_range_no_paging.html",
     "docs/api/origins_collection_response_webhook_subscription_no_paging.html",
-    "docs/api/origins_webhook_subscription.html",
+    "docs/api/origins_ip_range.html",
+    "docs/api/webhook_subscription.html",
     "docs/assets/nunito.woff2",
     "docs/assets/nunito.woff2.license.txt",
     "docs/assets/search.js",

@@ -1,0 +1,32 @@
+{
+  "existing": {
+    "webhook_subscription": {
+      "WEBHOOK_SUBSCRIPTION00": {
+        "id": "WEBHOOK_SUBSCRIPTION00",
+        "webhookUrl": "s15"
+      },
+      "WEBHOOK_SUBSCRIPTION01": {
+        "id": "WEBHOOK_SUBSCRIPTION01",
+        "webhookUrl": "s29"
+      },
+      "WEBHOOK_SUBSCRIPTION02": {
+        "id": "WEBHOOK_SUBSCRIPTION02",
+        "webhookUrl": "s3d"
+      }
+    }
+  },
+  "new": {
+    "webhook_subscription": {
+      "webhook_subscription_ref01": {
+        "webhookUrl": "s51"
+      }
+    }
+  },
+  "requests": {
+    "POST /meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

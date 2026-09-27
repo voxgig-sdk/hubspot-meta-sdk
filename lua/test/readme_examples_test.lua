@@ -20,7 +20,7 @@ local SDK_MODULE = "hubspot-meta_sdk"
 -- A test-mode client seeded with a fixture for every entity. The constructor
 -- of each runnable snippet is rewritten to this form so the offline mock has
 -- data to return.
-local TEST_SEED = '{ entity = { ["advanced"] = { ["test01"] = { id = "test01" } }, ["basic"] = { ["test01"] = { id = "test01" } }, ["origins_collection_response_ip_range_no_paging"] = { ["test01"] = { id = "test01" } }, ["origins_collection_response_webhook_subscription_no_paging"] = { ["test01"] = { id = "test01" } }, ["origins_webhook_subscription"] = { ["test01"] = { id = "test01" } } } }'
+local TEST_SEED = '{ entity = { ["advanced"] = { ["test01"] = { id = "test01" } }, ["basic"] = { ["test01"] = { id = "test01" } }, ["origins_collection_response_webhook_subscription_no_paging"] = { ["test01"] = { id = "test01" } }, ["origins_ip_range"] = { ["test01"] = { id = "test01" } }, ["webhook_subscription"] = { ["test01"] = { id = "test01" } } } }'
 local TEST_CTOR = "sdk.test(" .. TEST_SEED .. ")"
 
 local function script_dir()

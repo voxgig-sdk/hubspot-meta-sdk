@@ -1,7 +1,7 @@
 // Typed models for the HubspotMeta SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -24,7 +24,6 @@ type AdvancedCreateData struct {
 
 // Basic is the typed data model for the basic entity.
 type Basic struct {
-	Id *string `json:"id,omitempty"`
 }
 
 // BasicLoadMatch is the typed request payload for Basic.LoadTyped.
@@ -39,23 +38,8 @@ type BasicRemoveMatch struct {
 	SubscriptionId int `json:"subscription_id"`
 }
 
-// OriginsCollectionResponseIpRangeNoPaging is the typed data model for the origins_collection_response_ip_range_no_paging entity.
-type OriginsCollectionResponseIpRangeNoPaging struct {
-	Cidr string `json:"cidr"`
-	Description string `json:"description"`
-	Direction string `json:"direction"`
-	Service string `json:"service"`
-}
-
-// OriginsCollectionResponseIpRangeNoPagingListMatch is the typed request payload for OriginsCollectionResponseIpRangeNoPaging.ListTyped.
-type OriginsCollectionResponseIpRangeNoPagingListMatch struct {
-	Direction *[]any `json:"direction,omitempty"`
-	Service *[]any `json:"service,omitempty"`
-}
-
 // OriginsCollectionResponseWebhookSubscriptionNoPaging is the typed data model for the origins_collection_response_webhook_subscription_no_paging entity.
 type OriginsCollectionResponseWebhookSubscriptionNoPaging struct {
-	Results []any `json:"results"`
 }
 
 // OriginsCollectionResponseWebhookSubscriptionNoPagingLoadMatch is the typed request payload for OriginsCollectionResponseWebhookSubscriptionNoPaging.LoadTyped.
@@ -63,14 +47,22 @@ type OriginsCollectionResponseWebhookSubscriptionNoPagingLoadMatch struct {
 	AppId string `json:"app_id"`
 }
 
-// OriginsWebhookSubscription is the typed data model for the origins_webhook_subscription entity.
-type OriginsWebhookSubscription struct {
-	Id *string `json:"id,omitempty"`
-	WebhookUrl string `json:"webhookUrl"`
+// OriginsIpRange is the typed data model for the origins_ip_range entity.
+type OriginsIpRange struct {
 }
 
-// OriginsWebhookSubscriptionCreateData is the typed request payload for OriginsWebhookSubscription.CreateTyped.
-type OriginsWebhookSubscriptionCreateData struct {
+// OriginsIpRangeListMatch is the typed request payload for OriginsIpRange.ListTyped.
+type OriginsIpRangeListMatch struct {
+	Direction *[]any `json:"direction,omitempty"`
+	Service *[]any `json:"service,omitempty"`
+}
+
+// WebhookSubscription is the typed data model for the webhook_subscription entity.
+type WebhookSubscription struct {
+}
+
+// WebhookSubscriptionCreateData is the typed request payload for WebhookSubscription.CreateTyped.
+type WebhookSubscriptionCreateData struct {
 	Id string `json:"id"`
 	WebhookUrl string `json:"webhookUrl"`
 }

@@ -59,14 +59,14 @@ func init() {
 	core.NewBasicEntityFunc = func(client *core.HubspotMetaSDK, entopts map[string]any) core.HubspotMetaEntity {
 		return entity.NewBasicEntity(client, entopts)
 	}
-	core.NewOriginsCollectionResponseIpRangeNoPagingEntityFunc = func(client *core.HubspotMetaSDK, entopts map[string]any) core.HubspotMetaEntity {
-		return entity.NewOriginsCollectionResponseIpRangeNoPagingEntity(client, entopts)
-	}
 	core.NewOriginsCollectionResponseWebhookSubscriptionNoPagingEntityFunc = func(client *core.HubspotMetaSDK, entopts map[string]any) core.HubspotMetaEntity {
 		return entity.NewOriginsCollectionResponseWebhookSubscriptionNoPagingEntity(client, entopts)
 	}
-	core.NewOriginsWebhookSubscriptionEntityFunc = func(client *core.HubspotMetaSDK, entopts map[string]any) core.HubspotMetaEntity {
-		return entity.NewOriginsWebhookSubscriptionEntity(client, entopts)
+	core.NewOriginsIpRangeEntityFunc = func(client *core.HubspotMetaSDK, entopts map[string]any) core.HubspotMetaEntity {
+		return entity.NewOriginsIpRangeEntity(client, entopts)
+	}
+	core.NewWebhookSubscriptionEntityFunc = func(client *core.HubspotMetaSDK, entopts map[string]any) core.HubspotMetaEntity {
+		return entity.NewWebhookSubscriptionEntity(client, entopts)
 	}
 }
 

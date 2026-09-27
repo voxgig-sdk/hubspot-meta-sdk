@@ -1,7 +1,7 @@
 -- Typed models for the HubspotMeta SDK (LuaLS annotations).
 --
--- GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
--- params (op.<name>.points[].args.params[]). Field/param types come from the
+-- GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+-- params (op.<name>.points[].g.params[]). Field/param types come from the
 -- canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 -- @voxgig/apidef VALID_CANON). Annotations only — no runtime effect. Do not
 -- edit by hand.
@@ -23,27 +23,27 @@
 ---@field app_id string
 ---@field subscription_id number
 
----@class OriginsCollectionResponseIpRangeNoPaging
----@field cidr string
----@field description string
----@field direction string
----@field service string
-
----@class OriginsCollectionResponseIpRangeNoPagingListMatch
----@field direction? table
----@field service? table
-
 ---@class OriginsCollectionResponseWebhookSubscriptionNoPaging
 ---@field results table
 
 ---@class OriginsCollectionResponseWebhookSubscriptionNoPagingLoadMatch
 ---@field app_id string
 
----@class OriginsWebhookSubscription
+---@class OriginsIpRange
+---@field cidr string
+---@field description string
+---@field direction string
+---@field service string
+
+---@class OriginsIpRangeListMatch
+---@field direction? table
+---@field service? table
+
+---@class WebhookSubscription
 ---@field id? string
 ---@field webhookUrl string
 
----@class OriginsWebhookSubscriptionCreateData
+---@class WebhookSubscriptionCreateData
 ---@field id string
 ---@field webhookUrl string
 

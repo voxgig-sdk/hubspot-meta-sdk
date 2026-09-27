@@ -1,0 +1,86 @@
+# Entity: origins_collection_response_webhook_subscription_no_paging
+
+main: kit: entity: origins_collection_response_webhook_subscription_no_paging: {
+
+  alias: field: {}
+
+  fields: {
+    results: {
+      h: "Results"
+      n: "results"
+      r: true
+      sh: "An array of webhook subscriptions."
+      t: "`$ARRAY`"
+    }
+  }
+
+  name: "origins_collection_response_webhook_subscription_no_paging"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: null
+                k: "param"
+                n: "app_id"
+                or: "app_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}"
+          q: {
+            exist: [
+              "app_id"
+            ]
+          }
+          r: {
+            param: {
+              appId: "app_id"
+            }
+          }
+          s: [
+            {
+              lit: "meta"
+            }
+            {
+              lit: "network-origins"
+            }
+            {
+              lit: "2026-09"
+            }
+            {
+              lit: "ip-ranges"
+            }
+            {
+              lit: "webhook-subscriptions"
+            }
+            {
+              var: "app_id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.webhook_subscription")]
+  ]
+
+}

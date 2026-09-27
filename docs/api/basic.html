@@ -9,9 +9,9 @@
 <a href="../api/advanced.html">Advanced</a>
 <a aria-current="page" href="../api/basic.html">Basic</a><div class="nav-sections"><a class="nav-section" href="#get-metanetwork-origins2026-09ip-rangessimple">GET /meta/network-origins/2026-09/ip-ranges/simple</a>
 <a class="nav-section" href="#delete-metanetwork-origins2026-09ip-rangeswebhook-subscriptionsappidsubscription-id">DELETE /meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}/{subscription-id}</a></div>
-<a href="../api/origins_collection_response_ip_range_no_paging.html">OriginsCollectionResponseIpRangeNoPaging</a>
 <a href="../api/origins_collection_response_webhook_subscription_no_paging.html">OriginsCollectionResponseWebhookSubscriptionNoPaging</a>
-<a href="../api/origins_webhook_subscription.html">OriginsWebhookSubscription</a></details>
+<a href="../api/origins_ip_range.html">OriginsIpRange</a>
+<a href="../api/webhook_subscription.html">WebhookSubscription</a></details>
 <details><summary>Guides</summary><a href="../guides/authentication.html">Authentication</a>
 <a href="../guides/first-call.html">Make your first API call</a>
 <a href="../guides/errors.html">Handle errors</a>
@@ -24,14 +24,14 @@
 <a href="../sdks/ts.html">TypeScript</a></details>
 <details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
 <a href="../tools/go-mcp.html">Go MCP server</a></details>
-<details><summary>Features</summary><a href="../features/debug.html">Request/response capture ring buffer for debugging</a>
-<a href="../features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
-<a href="../features/metrics.html">Statistics capture: per-operation counters and latency</a>
-<a href="../features/paging.html">Pagination signals for list operations</a>
-<a href="../features/ratelimit.html">Client-side rate limiting via a token bucket</a>
-<a href="../features/retry.html">Automatic retry of transient failures with exponential backoff</a>
-<a href="../features/test.html">In-memory mock transport for testing without a live server</a>
-<a href="../features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="basic">Basic</h1>
+<details><summary>Features</summary><a href="../features/debug.html">Debug capture</a>
+<a href="../features/idempotency.html">Idempotency</a>
+<a href="../features/metrics.html">Metrics</a>
+<a href="../features/paging.html">Paging</a>
+<a href="../features/ratelimit.html">Rate limiting</a>
+<a href="../features/retry.html">Retry</a>
+<a href="../features/test.html">Test transport</a>
+<a href="../features/timeout.html">Timeout</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="basic">Basic</h1>
 <h2 id="operations">Operations</h2>
 <p>Every route this entity exposes. Each route links to its own reference on this page.</p>
 <table>
@@ -58,6 +58,46 @@
 </tr>
 </tbody>
 </table>
+<h2 id="examples">Examples</h2>
+<p>One example per SDK, generated from the API model. The argument names are the parameters and fields of this entity, and the values are placeholders. The examples are not compiled or executed.</p>
+<h3 id="golang">Golang</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/go.html#set-up-the-client">Golang setup</a>, then call the operations:</p>
+<pre><code class="language-go">basic, err := client.Basic(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(basic)
+removed, err := client.Basic(nil).Remove(map[string]any{&quot;app_id&quot;: &quot;example&quot;, &quot;subscription_id&quot;: 1}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(removed)
+</code></pre>
+<h3 id="javascript">JavaScript</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/js.html#set-up-the-client">JavaScript setup</a>, then call the operations:</p>
+<pre><code class="language-js">const basic = await client.Basic().load()
+await client.Basic().remove({ app_id: &quot;example&quot;, subscription_id: 1 })
+</code></pre>
+<h3 id="lua">Lua</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/lua.html#set-up-the-client">Lua setup</a>, then call the operations:</p>
+<pre><code class="language-lua">local basic, err = client:Basic():load()
+local removed, err = client:Basic():remove({ app_id = &quot;example&quot;, subscription_id = 1 })
+</code></pre>
+<h3 id="php">PHP</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/php.html#set-up-the-client">PHP setup</a>, then call the operations:</p>
+<pre><code class="language-php">$basic = $client-&gt;Basic()-&gt;load();
+$client-&gt;Basic()-&gt;remove([&quot;app_id&quot; =&gt; &quot;example&quot;, &quot;subscription_id&quot; =&gt; 1]);
+</code></pre>
+<h3 id="python">Python</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/py.html#set-up-the-client">Python setup</a>, then call the operations:</p>
+<pre><code class="language-py">basic = client.Basic().load()
+client.Basic().remove({&quot;app_id&quot;: &quot;example&quot;, &quot;subscription_id&quot;: 1})
+</code></pre>
+<h3 id="typescript">TypeScript</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/ts.html#set-up-the-client">TypeScript setup</a>, then call the operations:</p>
+<pre><code class="language-ts">const basic = await client.Basic().load()
+await client.Basic().remove({ app_id: &quot;example&quot;, subscription_id: 1 })
+</code></pre>
 <h2 id="fields">Fields</h2>
 <table>
 <thead>
@@ -73,7 +113,7 @@
 <td><code>id</code></td>
 <td><code>string</code></td>
 <td>No</td>
-<td></td>
+<td>Id</td>
 </tr>
 </tbody>
 </table>
@@ -84,7 +124,7 @@
 <p>| Parameter | In | Type | Required | Description |
 | --- | --- | --- | --- |
 | <code>direction</code> | <code>query</code> | <code>array of enum: INGRESS, EGRESS</code> | No | An array specifying the direction of the IP traffic. Valid values are 'INGRESS' and 'EGRESS'. |
-| <code>service</code> | <code>query</code> | <code>array of enum: EMAIL, API, DNS, WEB_SCRAPING, TEST_SERVICE</code> | No | An array specifying the service type for which the IP ranges are applicable. Valid values include 'EMAIL', 'API', 'DNS', 'WEB_SCRAPING', and 'TEST_SERVICE'. |</p>
+| <code>service</code> | <code>query</code> | <code>array of enum: EMAIL, API, DNS, WEB_SCRAPING, TEST_SERVICE</code> | No | An array specifying the service type for which the IP ranges are applicable. Valid values include 'EMAIL', 'API', 'DNS', '<code>WEB_SCRAPING</code>', and '<code>TEST_SERVICE</code>'. |</p>
 <h4 id="responses">Responses</h4>
 <h5 id="200-successful-operation" class="status" data-status="2xx">200: successful operation</h5>
 <p><code>text/plain</code></p>

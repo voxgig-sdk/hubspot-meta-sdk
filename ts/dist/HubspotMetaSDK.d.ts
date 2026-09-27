@@ -1,8 +1,8 @@
 import { AdvancedEntity } from './entity/AdvancedEntity';
 import { BasicEntity } from './entity/BasicEntity';
-import { OriginsCollectionResponseIpRangeNoPagingEntity } from './entity/OriginsCollectionResponseIpRangeNoPagingEntity';
 import { OriginsCollectionResponseWebhookSubscriptionNoPagingEntity } from './entity/OriginsCollectionResponseWebhookSubscriptionNoPagingEntity';
-import { OriginsWebhookSubscriptionEntity } from './entity/OriginsWebhookSubscriptionEntity';
+import { OriginsIpRangeEntity } from './entity/OriginsIpRangeEntity';
+import { WebhookSubscriptionEntity } from './entity/WebhookSubscriptionEntity';
 export type * from './HubspotMetaTypes';
 import { inspect } from 'node:util';
 import type { Context, Feature } from './types';
@@ -50,9 +50,9 @@ declare class HubspotMetaSDK {
     graphql(query: string, variables?: any, ctrl?: any): Promise<any>;
     Advanced(entopts?: Record<string, any>): AdvancedEntity;
     Basic(entopts?: Record<string, any>): BasicEntity;
-    OriginsCollectionResponseIpRangeNoPaging(entopts?: Record<string, any>): OriginsCollectionResponseIpRangeNoPagingEntity;
     OriginsCollectionResponseWebhookSubscriptionNoPaging(entopts?: Record<string, any>): OriginsCollectionResponseWebhookSubscriptionNoPagingEntity;
-    OriginsWebhookSubscription(entopts?: Record<string, any>): OriginsWebhookSubscriptionEntity;
+    OriginsIpRange(entopts?: Record<string, any>): OriginsIpRangeEntity;
+    WebhookSubscription(entopts?: Record<string, any>): WebhookSubscriptionEntity;
     static test(testoptsarg?: any, sdkoptsarg?: any): HubspotMetaSDK;
     tester(testopts?: any, sdkopts?: any): HubspotMetaSDK;
     toJSON(): {

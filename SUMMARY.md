@@ -24,7 +24,17 @@ Results: successful operation; No content.
 
 SDK operations: `load`, `remove`.
 
-### [OriginsCollectionResponseIpRangeNoPaging](docs/api/origins_collection_response_ip_range_no_paging.html)
+### [OriginsCollectionResponseWebhookSubscriptionNoPaging](docs/api/origins_collection_response_webhook_subscription_no_paging.html)
+
+Results: successful operation.
+
+SDK operations: `load`.
+
+Key fields to recognise:
+
+- `results`: An array of webhook subscriptions. Each item in the array is a WebhookSubscription object.
+
+### [OriginsIpRange](docs/api/origins_ip_range.html)
 
 Results: successful operation.
 
@@ -37,17 +47,7 @@ Key fields to recognise:
 - `direction`: The direction of the IP traffic, which can be INGRESS or EGRESS.
 - `service`: The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING.
 
-### [OriginsCollectionResponseWebhookSubscriptionNoPaging](docs/api/origins_collection_response_webhook_subscription_no_paging.html)
-
-Results: successful operation.
-
-SDK operations: `load`.
-
-Key fields to recognise:
-
-- `results`: An array of webhook subscriptions. Each item in the array is a WebhookSubscription object.
-
-### [OriginsWebhookSubscription](docs/api/origins_webhook_subscription.html)
+### [WebhookSubscription](docs/api/webhook_subscription.html)
 
 Results: successful operation.
 
@@ -55,6 +55,7 @@ SDK operations: `create`.
 
 Key fields to recognise:
 
+- `id`: The unique identifier of the webhook subscription. It is an integer formatted as int64.
 - `webhookUrl`: The URL to which the webhook events will be sent. It is a string.
 
 ### Route map
@@ -66,9 +67,9 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 | [Advanced](docs/api/advanced.html) | `create` | `POST /meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}/{subscription-id}/test` | Required |
 | [Basic](docs/api/basic.html) | `load` | `GET /meta/network-origins/2026-09/ip-ranges/simple` | See reference |
 | [Basic](docs/api/basic.html) | `remove` | `DELETE /meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}/{subscription-id}` | Required |
-| [OriginsCollectionResponseIpRangeNoPaging](docs/api/origins_collection_response_ip_range_no_paging.html) | `list` | `GET /meta/network-origins/2026-09/ip-ranges` | See reference |
 | [OriginsCollectionResponseWebhookSubscriptionNoPaging](docs/api/origins_collection_response_webhook_subscription_no_paging.html) | `load` | `GET /meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}` | Required |
-| [OriginsWebhookSubscription](docs/api/origins_webhook_subscription.html) | `create` | `POST /meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}` | Required |
+| [OriginsIpRange](docs/api/origins_ip_range.html) | `list` | `GET /meta/network-origins/2026-09/ip-ranges` | See reference |
+| [WebhookSubscription](docs/api/webhook_subscription.html) | `create` | `POST /meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}` | Required |
 
 ## Connect to the API
 
@@ -118,7 +119,7 @@ Use the MCP server to expose supported API operations to an MCP client.
 
 Repository directory: `go-mcp/`. Not published. Build from the go-mcp directory.
 
-- `hubspot-meta_list`: List records for an entity. Supported entities: `origins_collection_response_ip_range_no_paging`.
+- `hubspot-meta_list`: List records for an entity. Supported entities: `origins_ip_range`.
 - `hubspot-meta_load`: Load one record for an entity. Supported entities: `basic`, `origins_collection_response_webhook_subscription_no_paging`.
 
 ## Operational features

@@ -15,27 +15,27 @@ export interface BasicRemoveMatch {
     app_id: string;
     subscription_id: number;
 }
-export interface OriginsCollectionResponseIpRangeNoPaging {
-    cidr: string;
-    description: string;
-    direction: string;
-    service: string;
-}
-export interface OriginsCollectionResponseIpRangeNoPagingListMatch {
-    direction?: any[];
-    service?: any[];
-}
 export interface OriginsCollectionResponseWebhookSubscriptionNoPaging {
     results: any[];
 }
 export interface OriginsCollectionResponseWebhookSubscriptionNoPagingLoadMatch {
     app_id: string;
 }
-export interface OriginsWebhookSubscription {
+export interface OriginsIpRange {
+    cidr: string;
+    description: string;
+    direction: string;
+    service: string;
+}
+export interface OriginsIpRangeListMatch {
+    direction?: any[];
+    service?: any[];
+}
+export interface WebhookSubscription {
     id?: string;
     webhookUrl: string;
 }
-export interface OriginsWebhookSubscriptionCreateData {
+export interface WebhookSubscriptionCreateData {
     id: string;
     webhookUrl: string;
 }

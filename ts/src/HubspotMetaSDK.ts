@@ -2,9 +2,9 @@
 
 import { AdvancedEntity } from './entity/AdvancedEntity'
 import { BasicEntity } from './entity/BasicEntity'
-import { OriginsCollectionResponseIpRangeNoPagingEntity } from './entity/OriginsCollectionResponseIpRangeNoPagingEntity'
 import { OriginsCollectionResponseWebhookSubscriptionNoPagingEntity } from './entity/OriginsCollectionResponseWebhookSubscriptionNoPagingEntity'
-import { OriginsWebhookSubscriptionEntity } from './entity/OriginsWebhookSubscriptionEntity'
+import { OriginsIpRangeEntity } from './entity/OriginsIpRangeEntity'
+import { WebhookSubscriptionEntity } from './entity/WebhookSubscriptionEntity'
 
 export type * from './HubspotMetaTypes'
 
@@ -128,7 +128,6 @@ class HubspotMetaSDK {
 
     const options = this._options
 
-    // Build spec directly from SDK options + user-provided fetch args.
     const spec: any = {
       base: options.base,
       prefix: options.prefix,
@@ -144,7 +143,6 @@ class HubspotMetaSDK {
 
     ctx.spec = spec
 
-    // Merge user-provided headers over SDK defaults.
     if (fetchargs.headers) {
       const uheaders = fetchargs.headers
       for (let key in uheaders) {
@@ -154,7 +152,6 @@ class HubspotMetaSDK {
 
     
 
-    // Apply SDK auth (apikey, auth prefix, etc.)
     const authResult = prepareAuth(ctx)
     if (authResult instanceof Error) {
       return authResult
@@ -247,18 +244,6 @@ class HubspotMetaSDK {
 
 
 
-  // Raw GraphQL access: the pressure valve that makes the generated
-  // surface's deliberate omissions (per-call selection sets, typed filter
-  // builders, batching, subscriptions) livable — the whole schema stays
-  // reachable.
-  //
-  // Thin wrapper over the same prepare/fetch path `direct` uses, with the
-  // one thing raw `direct` cannot do for GraphQL: a GraphQL failure rides
-  // HTTP 200 as a top-level `errors` array, so status alone would report a
-  // failed query as ok.
-  //
-  // NOTE: like `direct`, this bypasses the feature pipeline — no retry,
-  // ratelimit or paging features apply.
   async graphql(query: string, variables?: any, ctrl?: any) {
     const options = this._options
 
@@ -319,15 +304,6 @@ class HubspotMetaSDK {
   }
 
 
-  // Entity access: `client.OriginsCollectionResponseIpRangeNoPaging().list()` / `client.OriginsCollectionResponseIpRangeNoPaging().load({ id })`.
-  // The argument is the entity OPTIONS object (passed to the entity
-  // constructor as entopts), not initial entity data.
-  OriginsCollectionResponseIpRangeNoPaging(entopts?: Record<string, any>) {
-    const self = this
-    return new OriginsCollectionResponseIpRangeNoPagingEntity(self, entopts)
-  }
-
-
   // Entity access: `client.OriginsCollectionResponseWebhookSubscriptionNoPaging().list()` / `client.OriginsCollectionResponseWebhookSubscriptionNoPaging().load({ id })`.
   // The argument is the entity OPTIONS object (passed to the entity
   // constructor as entopts), not initial entity data.
@@ -337,12 +313,21 @@ class HubspotMetaSDK {
   }
 
 
-  // Entity access: `client.OriginsWebhookSubscription().list()` / `client.OriginsWebhookSubscription().load({ id })`.
+  // Entity access: `client.OriginsIpRange().list()` / `client.OriginsIpRange().load({ id })`.
   // The argument is the entity OPTIONS object (passed to the entity
   // constructor as entopts), not initial entity data.
-  OriginsWebhookSubscription(entopts?: Record<string, any>) {
+  OriginsIpRange(entopts?: Record<string, any>) {
     const self = this
-    return new OriginsWebhookSubscriptionEntity(self, entopts)
+    return new OriginsIpRangeEntity(self, entopts)
+  }
+
+
+  // Entity access: `client.WebhookSubscription().list()` / `client.WebhookSubscription().load({ id })`.
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  WebhookSubscription(entopts?: Record<string, any>) {
+    const self = this
+    return new WebhookSubscriptionEntity(self, entopts)
   }
 
 

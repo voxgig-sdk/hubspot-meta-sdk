@@ -381,20 +381,6 @@ function HubspotMetaSDK:Basic(data)
 end
 
 
--- Idiomatic facade: client:OriginsCollectionResponseIpRangeNoPaging():list() / client:OriginsCollectionResponseIpRangeNoPaging():load({ id = ... })
--- Entity access is capitalised (PascalCase) for parity with the other SDKs.
-function HubspotMetaSDK:OriginsCollectionResponseIpRangeNoPaging(data)
-  local EntityMod = require("entity.origins_collection_response_ip_range_no_paging_entity")
-  if data == nil then
-    if self._origins_collection_response_ip_range_no_paging == nil then
-      self._origins_collection_response_ip_range_no_paging = EntityMod.new(self, nil)
-    end
-    return self._origins_collection_response_ip_range_no_paging
-  end
-  return EntityMod.new(self, data)
-end
-
-
 -- Idiomatic facade: client:OriginsCollectionResponseWebhookSubscriptionNoPaging():list() / client:OriginsCollectionResponseWebhookSubscriptionNoPaging():load({ id = ... })
 -- Entity access is capitalised (PascalCase) for parity with the other SDKs.
 function HubspotMetaSDK:OriginsCollectionResponseWebhookSubscriptionNoPaging(data)
@@ -409,15 +395,29 @@ function HubspotMetaSDK:OriginsCollectionResponseWebhookSubscriptionNoPaging(dat
 end
 
 
--- Idiomatic facade: client:OriginsWebhookSubscription():list() / client:OriginsWebhookSubscription():load({ id = ... })
+-- Idiomatic facade: client:OriginsIpRange():list() / client:OriginsIpRange():load({ id = ... })
 -- Entity access is capitalised (PascalCase) for parity with the other SDKs.
-function HubspotMetaSDK:OriginsWebhookSubscription(data)
-  local EntityMod = require("entity.origins_webhook_subscription_entity")
+function HubspotMetaSDK:OriginsIpRange(data)
+  local EntityMod = require("entity.origins_ip_range_entity")
   if data == nil then
-    if self._origins_webhook_subscription == nil then
-      self._origins_webhook_subscription = EntityMod.new(self, nil)
+    if self._origins_ip_range == nil then
+      self._origins_ip_range = EntityMod.new(self, nil)
     end
-    return self._origins_webhook_subscription
+    return self._origins_ip_range
+  end
+  return EntityMod.new(self, data)
+end
+
+
+-- Idiomatic facade: client:WebhookSubscription():list() / client:WebhookSubscription():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function HubspotMetaSDK:WebhookSubscription(data)
+  local EntityMod = require("entity.webhook_subscription_entity")
+  if data == nil then
+    if self._webhook_subscription == nil then
+      self._webhook_subscription = EntityMod.new(self, nil)
+    end
+    return self._webhook_subscription
   end
   return EntityMod.new(self, data)
 end

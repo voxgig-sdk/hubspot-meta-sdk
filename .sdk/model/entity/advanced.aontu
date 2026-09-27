@@ -1,0 +1,95 @@
+# Entity: advanced
+
+main: kit: entity: advanced: {
+
+  alias: field: {}
+
+  name: "advanced"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}/{subscription-id}/test"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: null
+                k: "param"
+                n: "subscription_id"
+                or: "subscription_id"
+                r: true
+                t: "`$INTEGER`"
+              }
+              {
+                ex: null
+                k: "param"
+                n: "webhook_subscription_id"
+                or: "app_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}/{subscription-id}/test"
+          q: {
+            exist: [
+              "subscription_id"
+              "webhook_subscription_id"
+            ]
+          }
+          r: {
+            param: {
+              appId: "webhook_subscription_id"
+              "subscription-id": "subscription_id"
+            }
+          }
+          s: [
+            {
+              lit: "meta"
+            }
+            {
+              lit: "network-origins"
+            }
+            {
+              lit: "2026-09"
+            }
+            {
+              lit: "ip-ranges"
+            }
+            {
+              lit: "webhook-subscriptions"
+            }
+            {
+              var: "webhook_subscription_id"
+            }
+            {
+              var: "subscription_id"
+            }
+            {
+              lit: "test"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  fields: {
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.webhook_subscription")]
+  ]
+
+}

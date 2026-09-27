@@ -1,0 +1,169 @@
+# Entity: basic
+
+main: kit: entity: basic: {
+
+  alias: field: {}
+
+  fields: {
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+    parts: [
+      "app_id"
+      "subscription_id"
+    ]
+    sep: "/"
+  }
+
+  name: "basic"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /meta/network-origins/2026-09/ip-ranges/simple"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: null
+                k: "query"
+                n: "direction"
+                or: "direction"
+                r: false
+                t: "`$ARRAY`"
+              }
+              {
+                ex: null
+                k: "query"
+                n: "service"
+                or: "service"
+                r: false
+                t: "`$ARRAY`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/meta/network-origins/2026-09/ip-ranges/simple"
+          q: {
+            exist: [
+              "direction"
+              "service"
+            ]
+          }
+          s: [
+            {
+              lit: "meta"
+            }
+            {
+              lit: "network-origins"
+            }
+            {
+              lit: "2026-09"
+            }
+            {
+              lit: "ip-ranges"
+            }
+            {
+              lit: "simple"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          co: {
+            id: "DELETE /meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}/{subscription-id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: null
+                k: "param"
+                n: "app_id"
+                or: "app_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: null
+                k: "param"
+                n: "subscription_id"
+                or: "subscription_id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "DELETE"
+          o: "/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}/{subscription-id}"
+          q: {
+            exist: [
+              "app_id"
+              "subscription_id"
+            ]
+          }
+          r: {
+            param: {
+              appId: "app_id"
+              "subscription-id": "subscription_id"
+            }
+          }
+          s: [
+            {
+              lit: "meta"
+            }
+            {
+              lit: "network-origins"
+            }
+            {
+              lit: "2026-09"
+            }
+            {
+              lit: "ip-ranges"
+            }
+            {
+              lit: "webhook-subscriptions"
+            }
+            {
+              var: "app_id"
+            }
+            {
+              var: "subscription_id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.webhook_subscription")]
+  ]
+
+}

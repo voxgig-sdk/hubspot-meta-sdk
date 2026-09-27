@@ -1,0 +1,41 @@
+{
+  "existing": {
+    "origins_ip_range": {
+      "ORIGINS_IP_RANGE00": {
+        "cidr": "s28",
+        "description": "s29",
+        "direction": "s2a",
+        "service": "s2b"
+      },
+      "ORIGINS_IP_RANGE01": {
+        "cidr": "s50",
+        "description": "s51",
+        "direction": "s52",
+        "service": "s53"
+      },
+      "ORIGINS_IP_RANGE02": {
+        "cidr": "s78",
+        "description": "s79",
+        "direction": "s7a",
+        "service": "s7b"
+      }
+    }
+  },
+  "new": {
+    "origins_ip_range": {
+      "origins_ip_range_ref01": {
+        "cidr": "sa0",
+        "description": "sa1",
+        "direction": "sa2",
+        "service": "sa3"
+      }
+    }
+  },
+  "requests": {
+    "GET /meta/network-origins/2026-09/ip-ranges": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

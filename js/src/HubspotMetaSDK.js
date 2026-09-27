@@ -2,9 +2,9 @@
 
 const { AdvancedEntity } = require('./entity/AdvancedEntity')
 const { BasicEntity } = require('./entity/BasicEntity')
-const { OriginsCollectionResponseIpRangeNoPagingEntity } = require('./entity/OriginsCollectionResponseIpRangeNoPagingEntity')
 const { OriginsCollectionResponseWebhookSubscriptionNoPagingEntity } = require('./entity/OriginsCollectionResponseWebhookSubscriptionNoPagingEntity')
-const { OriginsWebhookSubscriptionEntity } = require('./entity/OriginsWebhookSubscriptionEntity')
+const { OriginsIpRangeEntity } = require('./entity/OriginsIpRangeEntity')
+const { WebhookSubscriptionEntity } = require('./entity/WebhookSubscriptionEntity')
 
 
 const { inspect } = require('node:util')
@@ -315,15 +315,6 @@ class HubspotMetaSDK {
   }
 
 
-  // Entity access: `client.OriginsCollectionResponseIpRangeNoPaging().list()` / `client.OriginsCollectionResponseIpRangeNoPaging().load({ id })`.
-  // The argument is the entity OPTIONS object (passed to the entity
-  // constructor as entopts), not initial entity data.
-  OriginsCollectionResponseIpRangeNoPaging(entopts) {
-    const self = this
-    return new OriginsCollectionResponseIpRangeNoPagingEntity(self, entopts)
-  }
-
-
   // Entity access: `client.OriginsCollectionResponseWebhookSubscriptionNoPaging().list()` / `client.OriginsCollectionResponseWebhookSubscriptionNoPaging().load({ id })`.
   // The argument is the entity OPTIONS object (passed to the entity
   // constructor as entopts), not initial entity data.
@@ -333,12 +324,21 @@ class HubspotMetaSDK {
   }
 
 
-  // Entity access: `client.OriginsWebhookSubscription().list()` / `client.OriginsWebhookSubscription().load({ id })`.
+  // Entity access: `client.OriginsIpRange().list()` / `client.OriginsIpRange().load({ id })`.
   // The argument is the entity OPTIONS object (passed to the entity
   // constructor as entopts), not initial entity data.
-  OriginsWebhookSubscription(entopts) {
+  OriginsIpRange(entopts) {
     const self = this
-    return new OriginsWebhookSubscriptionEntity(self, entopts)
+    return new OriginsIpRangeEntity(self, entopts)
+  }
+
+
+  // Entity access: `client.WebhookSubscription().list()` / `client.WebhookSubscription().load({ id })`.
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  WebhookSubscription(entopts) {
+    const self = this
+    return new WebhookSubscriptionEntity(self, entopts)
   }
 
 

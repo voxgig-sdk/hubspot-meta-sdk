@@ -73,18 +73,6 @@ Create a new `Basic` entity instance.
 
 **Returns:** `BasicEntity` instance.
 
-#### `OriginsCollectionResponseIpRangeNoPaging(data?: object)`
-
-Create a new `OriginsCollectionResponseIpRangeNoPaging` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `OriginsCollectionResponseIpRangeNoPagingEntity` instance.
-
 #### `OriginsCollectionResponseWebhookSubscriptionNoPaging(data?: object)`
 
 Create a new `OriginsCollectionResponseWebhookSubscriptionNoPaging` entity instance.
@@ -97,9 +85,9 @@ Create a new `OriginsCollectionResponseWebhookSubscriptionNoPaging` entity insta
 
 **Returns:** `OriginsCollectionResponseWebhookSubscriptionNoPagingEntity` instance.
 
-#### `OriginsWebhookSubscription(data?: object)`
+#### `OriginsIpRange(data?: object)`
 
-Create a new `OriginsWebhookSubscription` entity instance.
+Create a new `OriginsIpRange` entity instance.
 
 **Parameters:**
 
@@ -107,7 +95,19 @@ Create a new `OriginsWebhookSubscription` entity instance.
 | --- | --- | --- |
 | `data` | `object` | Initial entity data. |
 
-**Returns:** `OriginsWebhookSubscriptionEntity` instance.
+**Returns:** `OriginsIpRangeEntity` instance.
+
+#### `WebhookSubscription(data?: object)`
+
+Create a new `WebhookSubscription` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `WebhookSubscriptionEntity` instance.
 
 #### `options()`
 
@@ -260,59 +260,6 @@ Return a copy of the entity options.
 
 ---
 
-## OriginsCollectionResponseIpRangeNoPagingEntity
-
-```ts
-const origins_collection_response_ip_range_no_paging = client.OriginsCollectionResponseIpRangeNoPaging()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `cidr` | `string` | Yes | The CIDR notation representing the IP range. |
-| `description` | `string` | Yes | A description of the IP range. |
-| `direction` | `string` | Yes | The direction of the IP traffic, which can be INGRESS or EGRESS. |
-| `service` | `string` | Yes | The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING. |
-
-### Operations
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Returns an array.
-
-```ts
-const results = await client.OriginsCollectionResponseIpRangeNoPaging().list()
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `OriginsCollectionResponseIpRangeNoPagingEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `HubspotMetaSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
 ## OriginsCollectionResponseWebhookSubscriptionNoPagingEntity
 
 ```ts
@@ -363,10 +310,63 @@ Return a copy of the entity options.
 
 ---
 
-## OriginsWebhookSubscriptionEntity
+## OriginsIpRangeEntity
 
 ```ts
-const origins_webhook_subscription = client.OriginsWebhookSubscription()
+const origins_ip_range = client.OriginsIpRange()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `cidr` | `string` | Yes | The CIDR notation representing the IP range. |
+| `description` | `string` | Yes | A description of the IP range. |
+| `direction` | `string` | Yes | The direction of the IP traffic, which can be INGRESS or EGRESS. |
+| `service` | `string` | Yes | The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING. |
+
+### Operations
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Returns an array.
+
+```ts
+const results = await client.OriginsIpRange().list()
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `OriginsIpRangeEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `HubspotMetaSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## WebhookSubscriptionEntity
+
+```ts
+const webhook_subscription = client.WebhookSubscription()
 ```
 
 ### Fields
@@ -383,7 +383,7 @@ const origins_webhook_subscription = client.OriginsWebhookSubscription()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.OriginsWebhookSubscription().create({
+const result = await client.WebhookSubscription().create({
   id: 'example_id',
   webhookUrl: 'example_webhookUrl',
 })
@@ -403,7 +403,7 @@ Get or set the entity match criteria. Works the same as `data()`.
 
 #### `make()`
 
-Create a new `OriginsWebhookSubscriptionEntity` instance with the same client and
+Create a new `WebhookSubscriptionEntity` instance with the same client and
 options.
 
 #### `client()`
@@ -421,14 +421,14 @@ Return a copy of the entity options.
 
 | Feature | Version | Description |
 | --- | --- | --- |
-| `debug` | 0.0.1 | Request/response capture ring buffer for debugging |
-| `idempotency` | 0.0.1 | Idempotency keys for safe retries of mutating operations |
-| `metrics` | 0.0.1 | Statistics capture: per-operation counters and latency |
-| `paging` | 0.0.1 | Pagination signals for list operations |
-| `ratelimit` | 0.0.1 | Client-side rate limiting via a token bucket |
-| `retry` | 0.0.1 | Automatic retry of transient failures with exponential backoff |
-| `test` | 0.0.1 | In-memory mock transport for testing without a live server |
-| `timeout` | 0.0.1 | Per-request timeout with transport abort |
+| `debug` | 0.0.1 | Debug capture |
+| `idempotency` | 0.0.1 | Idempotency |
+| `metrics` | 0.0.1 | Metrics |
+| `paging` | 0.0.1 | Paging |
+| `ratelimit` | 0.0.1 | Rate limiting |
+| `retry` | 0.0.1 | Retry |
+| `test` | 0.0.1 | Test transport |
+| `timeout` | 0.0.1 | Timeout |
 
 
 Features are activated via the `feature` option:
@@ -474,7 +474,7 @@ rather than the transport, so their order does not affect what they observe.
 
 #### `debug`
 
-Request/response capture ring buffer for debugging.
+Debug capture.
 
 **Configuration**
 
@@ -505,7 +505,7 @@ its default unless you name it.
 
 #### `idempotency`
 
-Idempotency keys for safe retries of mutating operations.
+Idempotency.
 
 **Configuration**
 
@@ -536,7 +536,7 @@ its default unless you name it.
 
 #### `metrics`
 
-Statistics capture: per-operation counters and latency.
+Metrics.
 
 **Configuration**
 
@@ -564,7 +564,7 @@ its default unless you name it.
 
 #### `paging`
 
-Pagination signals for list operations.
+Paging.
 
 **Configuration**
 
@@ -599,7 +599,7 @@ its default unless you name it.
 
 #### `ratelimit`
 
-Client-side rate limiting via a token bucket.
+Rate limiting.
 
 **Configuration**
 
@@ -630,7 +630,7 @@ its default unless you name it.
 
 #### `retry`
 
-Automatic retry of transient failures with exponential backoff.
+Retry.
 
 **Configuration**
 
@@ -664,7 +664,7 @@ its default unless you name it.
 
 #### `test`
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 **Configuration**
 
@@ -695,7 +695,7 @@ its default unless you name it.
 
 #### `timeout`
 
-Per-request timeout with transport abort.
+Timeout.
 
 **Configuration**
 

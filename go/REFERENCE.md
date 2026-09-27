@@ -56,17 +56,17 @@ Create a new `Advanced` entity instance. Pass `nil` for no initial data.
 
 Create a new `Basic` entity instance. Pass `nil` for no initial data.
 
-#### `OriginsCollectionResponseIpRangeNoPaging(data map[string]any) HubspotMetaEntity`
-
-Create a new `OriginsCollectionResponseIpRangeNoPaging` entity instance. Pass `nil` for no initial data.
-
 #### `OriginsCollectionResponseWebhookSubscriptionNoPaging(data map[string]any) HubspotMetaEntity`
 
 Create a new `OriginsCollectionResponseWebhookSubscriptionNoPaging` entity instance. Pass `nil` for no initial data.
 
-#### `OriginsWebhookSubscription(data map[string]any) HubspotMetaEntity`
+#### `OriginsIpRange(data map[string]any) HubspotMetaEntity`
 
-Create a new `OriginsWebhookSubscription` entity instance. Pass `nil` for no initial data.
+Create a new `OriginsIpRange` entity instance. Pass `nil` for no initial data.
+
+#### `WebhookSubscription(data map[string]any) HubspotMetaEntity`
+
+Create a new `WebhookSubscription` entity instance. Pass `nil` for no initial data.
 
 #### `OptionsMap() map[string]any`
 
@@ -215,60 +215,6 @@ Return the entity name.
 
 ---
 
-## OriginsCollectionResponseIpRangeNoPagingEntity
-
-```go
-originsCollectionResponseIpRangeNoPaging := client.OriginsCollectionResponseIpRangeNoPaging(nil)
-fmt.Println(originsCollectionResponseIpRangeNoPaging.GetName()) // "origins_collection_response_ip_range_no_paging"
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `cidr` | `string` | Yes | The CIDR notation representing the IP range. |
-| `description` | `string` | Yes | A description of the IP range. |
-| `direction` | `string` | Yes | The direction of the IP traffic, which can be INGRESS or EGRESS. |
-| `service` | `string` | Yes | The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING. |
-
-### Operations
-
-#### `List(reqmatch, ctrl map[string]any) (any, error)`
-
-List entities matching the given criteria. Returns an array.
-
-```go
-results, err := client.OriginsCollectionResponseIpRangeNoPaging(nil).List(nil, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(results)
-```
-
-### Common Methods
-
-#### `Data(args ...any) any`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `Match(args ...any) any`
-
-Get or set the entity match criteria. Works the same as `Data()`.
-
-#### `Make() Entity`
-
-Create a new `OriginsCollectionResponseIpRangeNoPagingEntity` instance with the same client and
-options.
-
-#### `GetName() string`
-
-Return the entity name.
-
-
----
-
 ## OriginsCollectionResponseWebhookSubscriptionNoPagingEntity
 
 ```go
@@ -320,11 +266,65 @@ Return the entity name.
 
 ---
 
-## OriginsWebhookSubscriptionEntity
+## OriginsIpRangeEntity
 
 ```go
-originsWebhookSubscription := client.OriginsWebhookSubscription(nil)
-fmt.Println(originsWebhookSubscription.GetName()) // "origins_webhook_subscription"
+originsIpRange := client.OriginsIpRange(nil)
+fmt.Println(originsIpRange.GetName()) // "origins_ip_range"
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `cidr` | `string` | Yes | The CIDR notation representing the IP range. |
+| `description` | `string` | Yes | A description of the IP range. |
+| `direction` | `string` | Yes | The direction of the IP traffic, which can be INGRESS or EGRESS. |
+| `service` | `string` | Yes | The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING. |
+
+### Operations
+
+#### `List(reqmatch, ctrl map[string]any) (any, error)`
+
+List entities matching the given criteria. Returns an array.
+
+```go
+results, err := client.OriginsIpRange(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
+```
+
+### Common Methods
+
+#### `Data(args ...any) any`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `Match(args ...any) any`
+
+Get or set the entity match criteria. Works the same as `Data()`.
+
+#### `Make() Entity`
+
+Create a new `OriginsIpRangeEntity` instance with the same client and
+options.
+
+#### `GetName() string`
+
+Return the entity name.
+
+
+---
+
+## WebhookSubscriptionEntity
+
+```go
+webhookSubscription := client.WebhookSubscription(nil)
+fmt.Println(webhookSubscription.GetName()) // "webhook_subscription"
 ```
 
 ### Fields
@@ -341,7 +341,7 @@ fmt.Println(originsWebhookSubscription.GetName()) // "origins_webhook_subscripti
 Create a new entity with the given data.
 
 ```go
-result, err := client.OriginsWebhookSubscription(nil).Create(map[string]any{
+result, err := client.WebhookSubscription(nil).Create(map[string]any{
     "id": "example_id",
     "webhookUrl": "example_webhookUrl",
 }, nil)
@@ -365,7 +365,7 @@ Get or set the entity match criteria. Works the same as `Data()`.
 
 #### `Make() Entity`
 
-Create a new `OriginsWebhookSubscriptionEntity` instance with the same client and
+Create a new `WebhookSubscriptionEntity` instance with the same client and
 options.
 
 #### `GetName() string`
@@ -379,14 +379,14 @@ Return the entity name.
 
 | Feature | Version | Description |
 | --- | --- | --- |
-| `debug` | 0.0.1 | Request/response capture ring buffer for debugging |
-| `idempotency` | 0.0.1 | Idempotency keys for safe retries of mutating operations |
-| `metrics` | 0.0.1 | Statistics capture: per-operation counters and latency |
-| `paging` | 0.0.1 | Pagination signals for list operations |
-| `ratelimit` | 0.0.1 | Client-side rate limiting via a token bucket |
-| `retry` | 0.0.1 | Automatic retry of transient failures with exponential backoff |
-| `test` | 0.0.1 | In-memory mock transport for testing without a live server |
-| `timeout` | 0.0.1 | Per-request timeout with transport abort |
+| `debug` | 0.0.1 | Debug capture |
+| `idempotency` | 0.0.1 | Idempotency |
+| `metrics` | 0.0.1 | Metrics |
+| `paging` | 0.0.1 | Paging |
+| `ratelimit` | 0.0.1 | Rate limiting |
+| `retry` | 0.0.1 | Retry |
+| `test` | 0.0.1 | Test transport |
+| `timeout` | 0.0.1 | Timeout |
 
 
 Features are activated via the `feature` option:
@@ -432,7 +432,7 @@ rather than the transport, so their order does not affect what they observe.
 
 #### `debug`
 
-Request/response capture ring buffer for debugging.
+Debug capture.
 
 **Configuration**
 
@@ -463,7 +463,7 @@ its default unless you name it.
 
 #### `idempotency`
 
-Idempotency keys for safe retries of mutating operations.
+Idempotency.
 
 **Configuration**
 
@@ -494,7 +494,7 @@ its default unless you name it.
 
 #### `metrics`
 
-Statistics capture: per-operation counters and latency.
+Metrics.
 
 **Configuration**
 
@@ -522,7 +522,7 @@ its default unless you name it.
 
 #### `paging`
 
-Pagination signals for list operations.
+Paging.
 
 **Configuration**
 
@@ -557,7 +557,7 @@ its default unless you name it.
 
 #### `ratelimit`
 
-Client-side rate limiting via a token bucket.
+Rate limiting.
 
 **Configuration**
 
@@ -588,7 +588,7 @@ its default unless you name it.
 
 #### `retry`
 
-Automatic retry of transient failures with exponential backoff.
+Retry.
 
 **Configuration**
 
@@ -622,7 +622,7 @@ its default unless you name it.
 
 #### `test`
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 **Configuration**
 
@@ -653,7 +653,7 @@ its default unless you name it.
 
 #### `timeout`
 
-Per-request timeout with transport abort.
+Timeout.
 
 **Configuration**
 

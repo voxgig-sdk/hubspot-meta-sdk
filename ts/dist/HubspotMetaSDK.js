@@ -4,9 +4,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SDK = exports.HubspotMetaSDK = exports.HubspotMetaEntityBase = exports.BaseFeature = exports.config = exports.stdutil = void 0;
 const AdvancedEntity_1 = require("./entity/AdvancedEntity");
 const BasicEntity_1 = require("./entity/BasicEntity");
-const OriginsCollectionResponseIpRangeNoPagingEntity_1 = require("./entity/OriginsCollectionResponseIpRangeNoPagingEntity");
 const OriginsCollectionResponseWebhookSubscriptionNoPagingEntity_1 = require("./entity/OriginsCollectionResponseWebhookSubscriptionNoPagingEntity");
-const OriginsWebhookSubscriptionEntity_1 = require("./entity/OriginsWebhookSubscriptionEntity");
+const OriginsIpRangeEntity_1 = require("./entity/OriginsIpRangeEntity");
+const WebhookSubscriptionEntity_1 = require("./entity/WebhookSubscriptionEntity");
 const node_util_1 = require("node:util");
 const Config_1 = require("./Config");
 Object.defineProperty(exports, "config", { enumerable: true, get: function () { return Config_1.config; } });
@@ -88,7 +88,6 @@ class HubspotMetaSDK {
             ctrl: fetchargs.ctrl || {},
         }, this._rootctx);
         const options = this._options;
-        // Build spec directly from SDK options + user-provided fetch args.
         const spec = {
             base: options.base,
             prefix: options.prefix,
@@ -102,14 +101,12 @@ class HubspotMetaSDK {
             step: 'start',
         };
         ctx.spec = spec;
-        // Merge user-provided headers over SDK defaults.
         if (fetchargs.headers) {
             const uheaders = fetchargs.headers;
             for (let key in uheaders) {
                 spec.headers[key] = uheaders[key];
             }
         }
-        // Apply SDK auth (apikey, auth prefix, etc.)
         const authResult = prepareAuth(ctx);
         if (authResult instanceof Error) {
             return authResult;
@@ -184,18 +181,6 @@ class HubspotMetaSDK {
             return { ok: false, err };
         }
     }
-    // Raw GraphQL access: the pressure valve that makes the generated
-    // surface's deliberate omissions (per-call selection sets, typed filter
-    // builders, batching, subscriptions) livable — the whole schema stays
-    // reachable.
-    //
-    // Thin wrapper over the same prepare/fetch path `direct` uses, with the
-    // one thing raw `direct` cannot do for GraphQL: a GraphQL failure rides
-    // HTTP 200 as a top-level `errors` array, so status alone would report a
-    // failed query as ok.
-    //
-    // NOTE: like `direct`, this bypasses the feature pipeline — no retry,
-    // ratelimit or paging features apply.
     async graphql(query, variables, ctrl) {
         const options = this._options;
         if (!options.allow.op.includes('graphql')) {
@@ -243,13 +228,6 @@ class HubspotMetaSDK {
         const self = this;
         return new BasicEntity_1.BasicEntity(self, entopts);
     }
-    // Entity access: `client.OriginsCollectionResponseIpRangeNoPaging().list()` / `client.OriginsCollectionResponseIpRangeNoPaging().load({ id })`.
-    // The argument is the entity OPTIONS object (passed to the entity
-    // constructor as entopts), not initial entity data.
-    OriginsCollectionResponseIpRangeNoPaging(entopts) {
-        const self = this;
-        return new OriginsCollectionResponseIpRangeNoPagingEntity_1.OriginsCollectionResponseIpRangeNoPagingEntity(self, entopts);
-    }
     // Entity access: `client.OriginsCollectionResponseWebhookSubscriptionNoPaging().list()` / `client.OriginsCollectionResponseWebhookSubscriptionNoPaging().load({ id })`.
     // The argument is the entity OPTIONS object (passed to the entity
     // constructor as entopts), not initial entity data.
@@ -257,12 +235,19 @@ class HubspotMetaSDK {
         const self = this;
         return new OriginsCollectionResponseWebhookSubscriptionNoPagingEntity_1.OriginsCollectionResponseWebhookSubscriptionNoPagingEntity(self, entopts);
     }
-    // Entity access: `client.OriginsWebhookSubscription().list()` / `client.OriginsWebhookSubscription().load({ id })`.
+    // Entity access: `client.OriginsIpRange().list()` / `client.OriginsIpRange().load({ id })`.
     // The argument is the entity OPTIONS object (passed to the entity
     // constructor as entopts), not initial entity data.
-    OriginsWebhookSubscription(entopts) {
+    OriginsIpRange(entopts) {
         const self = this;
-        return new OriginsWebhookSubscriptionEntity_1.OriginsWebhookSubscriptionEntity(self, entopts);
+        return new OriginsIpRangeEntity_1.OriginsIpRangeEntity(self, entopts);
+    }
+    // Entity access: `client.WebhookSubscription().list()` / `client.WebhookSubscription().load({ id })`.
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    WebhookSubscription(entopts) {
+        const self = this;
+        return new WebhookSubscriptionEntity_1.WebhookSubscriptionEntity(self, entopts);
     }
     static test(testoptsarg, sdkoptsarg) {
         const struct = stdutil.struct;

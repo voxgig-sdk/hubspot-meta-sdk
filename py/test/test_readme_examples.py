@@ -78,9 +78,9 @@ _CLIENT_VARS = ("client", "sdk")
 _ENTITIES = {
     "Advanced": "advanced",
     "Basic": "basic",
-    "OriginsCollectionResponseIpRangeNoPaging": "origins_collection_response_ip_range_no_paging",
     "OriginsCollectionResponseWebhookSubscriptionNoPaging": "origins_collection_response_webhook_subscription_no_paging",
-    "OriginsWebhookSubscription": "origins_webhook_subscription",
+    "OriginsIpRange": "origins_ip_range",
+    "WebhookSubscription": "webhook_subscription",
 }
 
 # The three documents held to the gate, tagged by human label.

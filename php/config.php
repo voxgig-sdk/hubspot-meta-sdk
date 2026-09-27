@@ -182,9 +182,9 @@ class HubspotMetaConfig
                 "entity" => [
                     "advanced" => [],
                     "basic" => [],
-                    "origins_collection_response_ip_range_no_paging" => [],
                     "origins_collection_response_webhook_subscription_no_paging" => [],
-                    "origins_webhook_subscription" => [],
+                    "origins_ip_range" => [],
+                    "webhook_subscription" => [],
                 ],
             ],
             "entity" => [
@@ -197,35 +197,9 @@ class HubspotMetaConfig
               'name' => 'create',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'example' => null,
-                        'kind' => 'param',
-                        'name' => 'subscription_id',
-                        'orig' => 'subscription_id',
-                        'reqd' => true,
-                        'type' => '`$INTEGER`',
-                      ],
-                      [
-                        'example' => null,
-                        'kind' => 'param',
-                        'name' => 'webhook_subscription_id',
-                        'orig' => 'app_id',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}/{subscription-id}/test',
-                  'rename' => [
-                    'param' => [
-                      'appId' => 'webhook_subscription_id',
-                      'subscription-id' => 'subscription_id',
-                    ],
-                  ],
                   'segments' => [
                     [
                       'lit' => 'meta',
@@ -252,16 +226,6 @@ class HubspotMetaConfig
                       'lit' => 'test',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'subscription_id',
-                      'webhook_subscription_id',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                   'parts' => [
                     'meta',
                     'network-origins',
@@ -272,6 +236,42 @@ class HubspotMetaConfig
                     '{subscription_id}',
                     'test',
                   ],
+                  'rename' => [
+                    'param' => [
+                      'appId' => 'webhook_subscription_id',
+                      'subscription-id' => 'subscription_id',
+                    ],
+                  ],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'subscription_id',
+                        'orig' => 'subscription_id',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => null,
+                      ],
+                      [
+                        'name' => 'webhook_subscription_id',
+                        'orig' => 'app_id',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => null,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'subscription_id',
+                      'webhook_subscription_id',
+                    ],
+                  ],
                 ],
               ],
             ],
@@ -279,7 +279,7 @@ class HubspotMetaConfig
           'relations' => [
             'ancestors' => [
               [
-                'webhook_subscription',
+                '$.main.kit.entity.webhook_subscription',
               ],
             ],
           ],
@@ -288,6 +288,7 @@ class HubspotMetaConfig
           'fields' => [
             [
               'name' => 'id',
+              'title' => 'Id',
               'type' => '`$STRING`',
             ],
           ],
@@ -307,24 +308,6 @@ class HubspotMetaConfig
               'name' => 'load',
               'points' => [
                 [
-                  'args' => [
-                    'query' => [
-                      [
-                        'example' => null,
-                        'kind' => 'query',
-                        'name' => 'direction',
-                        'orig' => 'direction',
-                        'type' => '`$ARRAY`',
-                      ],
-                      [
-                        'example' => null,
-                        'kind' => 'query',
-                        'name' => 'service',
-                        'orig' => 'service',
-                        'type' => '`$ARRAY`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/meta/network-origins/2026-09/ip-ranges/simple',
@@ -345,22 +328,41 @@ class HubspotMetaConfig
                       'lit' => 'simple',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'direction',
-                      'service',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                   'parts' => [
                     'meta',
                     'network-origins',
                     '2026-09',
                     'ip-ranges',
                     'simple',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'query' => [
+                      [
+                        'name' => 'direction',
+                        'orig' => 'direction',
+                        'type' => '`$ARRAY`',
+                        'kind' => 'query',
+                        'example' => null,
+                      ],
+                      [
+                        'name' => 'service',
+                        'orig' => 'service',
+                        'type' => '`$ARRAY`',
+                        'kind' => 'query',
+                        'example' => null,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'direction',
+                      'service',
+                    ],
                   ],
                 ],
               ],
@@ -370,35 +372,9 @@ class HubspotMetaConfig
               'name' => 'remove',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'example' => null,
-                        'kind' => 'param',
-                        'name' => 'app_id',
-                        'orig' => 'app_id',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                      [
-                        'example' => null,
-                        'kind' => 'param',
-                        'name' => 'subscription_id',
-                        'orig' => 'subscription_id',
-                        'reqd' => true,
-                        'type' => '`$INTEGER`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'DELETE',
                   'orig' => '/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}/{subscription-id}',
-                  'rename' => [
-                    'param' => [
-                      'appId' => 'app_id',
-                      'subscription-id' => 'subscription_id',
-                    ],
-                  ],
                   'segments' => [
                     [
                       'lit' => 'meta',
@@ -422,16 +398,6 @@ class HubspotMetaConfig
                       'var' => 'subscription_id',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'app_id',
-                      'subscription_id',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                   'parts' => [
                     'meta',
                     'network-origins',
@@ -441,6 +407,42 @@ class HubspotMetaConfig
                     '{app_id}',
                     '{subscription_id}',
                   ],
+                  'rename' => [
+                    'param' => [
+                      'appId' => 'app_id',
+                      'subscription-id' => 'subscription_id',
+                    ],
+                  ],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'app_id',
+                        'orig' => 'app_id',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => null,
+                      ],
+                      [
+                        'name' => 'subscription_id',
+                        'orig' => 'subscription_id',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => null,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'app_id',
+                      'subscription_id',
+                    ],
+                  ],
                 ],
               ],
             ],
@@ -448,111 +450,19 @@ class HubspotMetaConfig
           'relations' => [
             'ancestors' => [
               [
-                'webhook_subscription',
+                '$.main.kit.entity.webhook_subscription',
               ],
             ],
-          ],
-        ],
-        'origins_collection_response_ip_range_no_paging' => [
-          'fields' => [
-            [
-              'name' => 'cidr',
-              'req' => true,
-              'short' => 'The CIDR notation representing the IP range.',
-              'type' => '`$STRING`',
-            ],
-            [
-              'name' => 'description',
-              'req' => true,
-              'short' => 'A description of the IP range.',
-              'type' => '`$STRING`',
-            ],
-            [
-              'name' => 'direction',
-              'req' => true,
-              'short' => 'The direction of the IP traffic, which can be INGRESS or EGRESS.',
-              'type' => '`$STRING`',
-            ],
-            [
-              'name' => 'service',
-              'req' => true,
-              'short' => 'The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING.',
-              'type' => '`$STRING`',
-            ],
-          ],
-          'name' => 'origins_collection_response_ip_range_no_paging',
-          'op' => [
-            'list' => [
-              'input' => 'data',
-              'name' => 'list',
-              'points' => [
-                [
-                  'args' => [
-                    'query' => [
-                      [
-                        'example' => null,
-                        'kind' => 'query',
-                        'name' => 'direction',
-                        'orig' => 'direction',
-                        'type' => '`$ARRAY`',
-                      ],
-                      [
-                        'example' => null,
-                        'kind' => 'query',
-                        'name' => 'service',
-                        'orig' => 'service',
-                        'type' => '`$ARRAY`',
-                      ],
-                    ],
-                  ],
-                  'kind' => 'http',
-                  'method' => 'GET',
-                  'orig' => '/meta/network-origins/2026-09/ip-ranges',
-                  'segments' => [
-                    [
-                      'lit' => 'meta',
-                    ],
-                    [
-                      'lit' => 'network-origins',
-                    ],
-                    [
-                      'lit' => '2026-09',
-                    ],
-                    [
-                      'lit' => 'ip-ranges',
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'direction',
-                      'service',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body.results`',
-                  ],
-                  'parts' => [
-                    'meta',
-                    'network-origins',
-                    '2026-09',
-                    'ip-ranges',
-                  ],
-                ],
-              ],
-            ],
-          ],
-          'relations' => [
-            'ancestors' => [],
           ],
         ],
         'origins_collection_response_webhook_subscription_no_paging' => [
           'fields' => [
             [
               'name' => 'results',
+              'title' => 'Results',
+              'type' => '`$ARRAY`',
               'req' => true,
               'short' => 'An array of webhook subscriptions.',
-              'type' => '`$ARRAY`',
             ],
           ],
           'name' => 'origins_collection_response_webhook_subscription_no_paging',
@@ -562,26 +472,9 @@ class HubspotMetaConfig
               'name' => 'load',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'example' => null,
-                        'kind' => 'param',
-                        'name' => 'app_id',
-                        'orig' => 'app_id',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}',
-                  'rename' => [
-                    'param' => [
-                      'appId' => 'app_id',
-                    ],
-                  ],
                   'segments' => [
                     [
                       'lit' => 'meta',
@@ -602,15 +495,6 @@ class HubspotMetaConfig
                       'var' => 'app_id',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'app_id',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                   'parts' => [
                     'meta',
                     'network-origins',
@@ -619,6 +503,32 @@ class HubspotMetaConfig
                     'webhook-subscriptions',
                     '{app_id}',
                   ],
+                  'rename' => [
+                    'param' => [
+                      'appId' => 'app_id',
+                    ],
+                  ],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'app_id',
+                        'orig' => 'app_id',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => null,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'app_id',
+                    ],
+                  ],
                 ],
               ],
             ],
@@ -626,55 +536,138 @@ class HubspotMetaConfig
           'relations' => [
             'ancestors' => [
               [
-                'webhook_subscription',
+                '$.main.kit.entity.webhook_subscription',
               ],
             ],
           ],
         ],
-        'origins_webhook_subscription' => [
+        'origins_ip_range' => [
+          'fields' => [
+            [
+              'name' => 'cidr',
+              'title' => 'Cidr',
+              'type' => '`$STRING`',
+              'req' => true,
+              'short' => 'The CIDR notation representing the IP range.',
+            ],
+            [
+              'name' => 'description',
+              'title' => 'Description',
+              'type' => '`$STRING`',
+              'req' => true,
+              'short' => 'A description of the IP range.',
+            ],
+            [
+              'name' => 'direction',
+              'title' => 'Direction',
+              'type' => '`$STRING`',
+              'req' => true,
+              'short' => 'The direction of the IP traffic, which can be INGRESS or EGRESS.',
+            ],
+            [
+              'name' => 'service',
+              'title' => 'Service',
+              'type' => '`$STRING`',
+              'req' => true,
+              'short' => 'The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING.',
+            ],
+          ],
+          'name' => 'origins_ip_range',
+          'op' => [
+            'list' => [
+              'input' => 'data',
+              'name' => 'list',
+              'points' => [
+                [
+                  'kind' => 'http',
+                  'method' => 'GET',
+                  'orig' => '/meta/network-origins/2026-09/ip-ranges',
+                  'segments' => [
+                    [
+                      'lit' => 'meta',
+                    ],
+                    [
+                      'lit' => 'network-origins',
+                    ],
+                    [
+                      'lit' => '2026-09',
+                    ],
+                    [
+                      'lit' => 'ip-ranges',
+                    ],
+                  ],
+                  'parts' => [
+                    'meta',
+                    'network-origins',
+                    '2026-09',
+                    'ip-ranges',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body.results`',
+                  ],
+                  'args' => [
+                    'query' => [
+                      [
+                        'name' => 'direction',
+                        'orig' => 'direction',
+                        'type' => '`$ARRAY`',
+                        'kind' => 'query',
+                        'example' => null,
+                      ],
+                      [
+                        'name' => 'service',
+                        'orig' => 'service',
+                        'type' => '`$ARRAY`',
+                        'kind' => 'query',
+                        'example' => null,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'direction',
+                      'service',
+                    ],
+                  ],
+                ],
+              ],
+            ],
+          ],
+          'relations' => [
+            'ancestors' => [],
+          ],
+        ],
+        'webhook_subscription' => [
           'fields' => [
             [
               'name' => 'id',
+              'title' => 'Id',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'webhookUrl',
+              'title' => 'Webhook Url',
+              'type' => '`$STRING`',
               'req' => true,
               'short' => 'The URL to which webhook events will be sent.',
-              'type' => '`$STRING`',
             ],
           ],
           'id' => [
             'field' => 'id',
             'name' => 'id',
           ],
-          'name' => 'origins_webhook_subscription',
+          'name' => 'webhook_subscription',
           'op' => [
             'create' => [
               'input' => 'data',
               'name' => 'create',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'example' => null,
-                        'kind' => 'param',
-                        'name' => 'id',
-                        'orig' => 'app_id',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}',
-                  'rename' => [
-                    'param' => [
-                      'appId' => 'id',
-                    ],
-                  ],
                   'segments' => [
                     [
                       'lit' => 'meta',
@@ -695,15 +688,6 @@ class HubspotMetaConfig
                       'var' => 'id',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'id',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                   'parts' => [
                     'meta',
                     'network-origins',
@@ -711,6 +695,32 @@ class HubspotMetaConfig
                     'ip-ranges',
                     'webhook-subscriptions',
                     '{id}',
+                  ],
+                  'rename' => [
+                    'param' => [
+                      'appId' => 'id',
+                    ],
+                  ],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'id',
+                        'orig' => 'app_id',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => null,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'id',
+                    ],
                   ],
                 ],
               ],

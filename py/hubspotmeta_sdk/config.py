@@ -185,9 +185,9 @@ def make_config():
             "entity": {
                 "advanced": {},
                 "basic": {},
-                "origins_collection_response_ip_range_no_paging": {},
                 "origins_collection_response_webhook_subscription_no_paging": {},
-                "origins_webhook_subscription": {},
+                "origins_ip_range": {},
+                "webhook_subscription": {},
             },
         },
         "entity": {
@@ -200,35 +200,9 @@ def make_config():
             "name": "create",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": None,
-                      "kind": "param",
-                      "name": "subscription_id",
-                      "orig": "subscription_id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                    {
-                      "example": None,
-                      "kind": "param",
-                      "name": "webhook_subscription_id",
-                      "orig": "app_id",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "POST",
                 "orig": "/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}/{subscription-id}/test",
-                "rename": {
-                  "param": {
-                    "appId": "webhook_subscription_id",
-                    "subscription-id": "subscription_id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "meta",
@@ -255,16 +229,6 @@ def make_config():
                     "lit": "test",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "subscription_id",
-                    "webhook_subscription_id",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "meta",
                   "network-origins",
@@ -275,6 +239,42 @@ def make_config():
                   "{subscription_id}",
                   "test",
                 ],
+                "rename": {
+                  "param": {
+                    "appId": "webhook_subscription_id",
+                    "subscription-id": "subscription_id",
+                  },
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "subscription_id",
+                      "orig": "subscription_id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": None,
+                    },
+                    {
+                      "name": "webhook_subscription_id",
+                      "orig": "app_id",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": None,
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "subscription_id",
+                    "webhook_subscription_id",
+                  ],
+                },
               },
             ],
           },
@@ -282,7 +282,7 @@ def make_config():
         "relations": {
           "ancestors": [
             [
-              "webhook_subscription",
+              "$.main.kit.entity.webhook_subscription",
             ],
           ],
         },
@@ -291,6 +291,7 @@ def make_config():
         "fields": [
           {
             "name": "id",
+            "title": "Id",
             "type": "`$STRING`",
           },
         ],
@@ -310,24 +311,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "query": [
-                    {
-                      "example": None,
-                      "kind": "query",
-                      "name": "direction",
-                      "orig": "direction",
-                      "type": "`$ARRAY`",
-                    },
-                    {
-                      "example": None,
-                      "kind": "query",
-                      "name": "service",
-                      "orig": "service",
-                      "type": "`$ARRAY`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/meta/network-origins/2026-09/ip-ranges/simple",
@@ -348,16 +331,6 @@ def make_config():
                     "lit": "simple",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "direction",
-                    "service",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "meta",
                   "network-origins",
@@ -365,6 +338,35 @@ def make_config():
                   "ip-ranges",
                   "simple",
                 ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "query": [
+                    {
+                      "name": "direction",
+                      "orig": "direction",
+                      "type": "`$ARRAY`",
+                      "kind": "query",
+                      "example": None,
+                    },
+                    {
+                      "name": "service",
+                      "orig": "service",
+                      "type": "`$ARRAY`",
+                      "kind": "query",
+                      "example": None,
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "direction",
+                    "service",
+                  ],
+                },
               },
             ],
           },
@@ -373,35 +375,9 @@ def make_config():
             "name": "remove",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": None,
-                      "kind": "param",
-                      "name": "app_id",
-                      "orig": "app_id",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "example": None,
-                      "kind": "param",
-                      "name": "subscription_id",
-                      "orig": "subscription_id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "DELETE",
                 "orig": "/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}/{subscription-id}",
-                "rename": {
-                  "param": {
-                    "appId": "app_id",
-                    "subscription-id": "subscription_id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "meta",
@@ -425,16 +401,6 @@ def make_config():
                     "var": "subscription_id",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "app_id",
-                    "subscription_id",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "meta",
                   "network-origins",
@@ -444,6 +410,42 @@ def make_config():
                   "{app_id}",
                   "{subscription_id}",
                 ],
+                "rename": {
+                  "param": {
+                    "appId": "app_id",
+                    "subscription-id": "subscription_id",
+                  },
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "app_id",
+                      "orig": "app_id",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": None,
+                    },
+                    {
+                      "name": "subscription_id",
+                      "orig": "subscription_id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": None,
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "app_id",
+                    "subscription_id",
+                  ],
+                },
               },
             ],
           },
@@ -451,111 +453,19 @@ def make_config():
         "relations": {
           "ancestors": [
             [
-              "webhook_subscription",
+              "$.main.kit.entity.webhook_subscription",
             ],
           ],
-        },
-      },
-      "origins_collection_response_ip_range_no_paging": {
-        "fields": [
-          {
-            "name": "cidr",
-            "req": True,
-            "short": "The CIDR notation representing the IP range.",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "description",
-            "req": True,
-            "short": "A description of the IP range.",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "direction",
-            "req": True,
-            "short": "The direction of the IP traffic, which can be INGRESS or EGRESS.",
-            "type": "`$STRING`",
-          },
-          {
-            "name": "service",
-            "req": True,
-            "short": "The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING.",
-            "type": "`$STRING`",
-          },
-        ],
-        "name": "origins_collection_response_ip_range_no_paging",
-        "op": {
-          "list": {
-            "input": "data",
-            "name": "list",
-            "points": [
-              {
-                "args": {
-                  "query": [
-                    {
-                      "example": None,
-                      "kind": "query",
-                      "name": "direction",
-                      "orig": "direction",
-                      "type": "`$ARRAY`",
-                    },
-                    {
-                      "example": None,
-                      "kind": "query",
-                      "name": "service",
-                      "orig": "service",
-                      "type": "`$ARRAY`",
-                    },
-                  ],
-                },
-                "kind": "http",
-                "method": "GET",
-                "orig": "/meta/network-origins/2026-09/ip-ranges",
-                "segments": [
-                  {
-                    "lit": "meta",
-                  },
-                  {
-                    "lit": "network-origins",
-                  },
-                  {
-                    "lit": "2026-09",
-                  },
-                  {
-                    "lit": "ip-ranges",
-                  },
-                ],
-                "select": {
-                  "exist": [
-                    "direction",
-                    "service",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body.results`",
-                },
-                "parts": [
-                  "meta",
-                  "network-origins",
-                  "2026-09",
-                  "ip-ranges",
-                ],
-              },
-            ],
-          },
-        },
-        "relations": {
-          "ancestors": [],
         },
       },
       "origins_collection_response_webhook_subscription_no_paging": {
         "fields": [
           {
             "name": "results",
+            "title": "Results",
+            "type": "`$ARRAY`",
             "req": True,
             "short": "An array of webhook subscriptions.",
-            "type": "`$ARRAY`",
           },
         ],
         "name": "origins_collection_response_webhook_subscription_no_paging",
@@ -565,26 +475,9 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": None,
-                      "kind": "param",
-                      "name": "app_id",
-                      "orig": "app_id",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}",
-                "rename": {
-                  "param": {
-                    "appId": "app_id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "meta",
@@ -605,15 +498,6 @@ def make_config():
                     "var": "app_id",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "app_id",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "meta",
                   "network-origins",
@@ -622,6 +506,32 @@ def make_config():
                   "webhook-subscriptions",
                   "{app_id}",
                 ],
+                "rename": {
+                  "param": {
+                    "appId": "app_id",
+                  },
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "app_id",
+                      "orig": "app_id",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": None,
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "app_id",
+                  ],
+                },
               },
             ],
           },
@@ -629,55 +539,138 @@ def make_config():
         "relations": {
           "ancestors": [
             [
-              "webhook_subscription",
+              "$.main.kit.entity.webhook_subscription",
             ],
           ],
         },
       },
-      "origins_webhook_subscription": {
+      "origins_ip_range": {
+        "fields": [
+          {
+            "name": "cidr",
+            "title": "Cidr",
+            "type": "`$STRING`",
+            "req": True,
+            "short": "The CIDR notation representing the IP range.",
+          },
+          {
+            "name": "description",
+            "title": "Description",
+            "type": "`$STRING`",
+            "req": True,
+            "short": "A description of the IP range.",
+          },
+          {
+            "name": "direction",
+            "title": "Direction",
+            "type": "`$STRING`",
+            "req": True,
+            "short": "The direction of the IP traffic, which can be INGRESS or EGRESS.",
+          },
+          {
+            "name": "service",
+            "title": "Service",
+            "type": "`$STRING`",
+            "req": True,
+            "short": "The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING.",
+          },
+        ],
+        "name": "origins_ip_range",
+        "op": {
+          "list": {
+            "input": "data",
+            "name": "list",
+            "points": [
+              {
+                "kind": "http",
+                "method": "GET",
+                "orig": "/meta/network-origins/2026-09/ip-ranges",
+                "segments": [
+                  {
+                    "lit": "meta",
+                  },
+                  {
+                    "lit": "network-origins",
+                  },
+                  {
+                    "lit": "2026-09",
+                  },
+                  {
+                    "lit": "ip-ranges",
+                  },
+                ],
+                "parts": [
+                  "meta",
+                  "network-origins",
+                  "2026-09",
+                  "ip-ranges",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body.results`",
+                },
+                "args": {
+                  "query": [
+                    {
+                      "name": "direction",
+                      "orig": "direction",
+                      "type": "`$ARRAY`",
+                      "kind": "query",
+                      "example": None,
+                    },
+                    {
+                      "name": "service",
+                      "orig": "service",
+                      "type": "`$ARRAY`",
+                      "kind": "query",
+                      "example": None,
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "direction",
+                    "service",
+                  ],
+                },
+              },
+            ],
+          },
+        },
+        "relations": {
+          "ancestors": [],
+        },
+      },
+      "webhook_subscription": {
         "fields": [
           {
             "name": "id",
+            "title": "Id",
             "type": "`$STRING`",
           },
           {
             "name": "webhookUrl",
+            "title": "Webhook Url",
+            "type": "`$STRING`",
             "req": True,
             "short": "The URL to which webhook events will be sent.",
-            "type": "`$STRING`",
           },
         ],
         "id": {
           "field": "id",
           "name": "id",
         },
-        "name": "origins_webhook_subscription",
+        "name": "webhook_subscription",
         "op": {
           "create": {
             "input": "data",
             "name": "create",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": None,
-                      "kind": "param",
-                      "name": "id",
-                      "orig": "app_id",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "POST",
                 "orig": "/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}",
-                "rename": {
-                  "param": {
-                    "appId": "id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "meta",
@@ -698,15 +691,6 @@ def make_config():
                     "var": "id",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "id",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "meta",
                   "network-origins",
@@ -715,6 +699,32 @@ def make_config():
                   "webhook-subscriptions",
                   "{id}",
                 ],
+                "rename": {
+                  "param": {
+                    "appId": "id",
+                  },
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "id",
+                      "orig": "app_id",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": None,
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "id",
+                  ],
+                },
               },
             ],
           },

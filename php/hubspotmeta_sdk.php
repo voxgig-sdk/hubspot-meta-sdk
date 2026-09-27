@@ -377,24 +377,6 @@ class HubspotMetaSDK
     }
 
 
-    private $_origins_collection_response_ip_range_no_paging = null;
-
-    // Canonical facade: $client->OriginsCollectionResponseIpRangeNoPaging()->list() / ->load(["id" => ...]).
-    // PHP method names are case-insensitive, so lowercase $client->origins_collection_response_ip_range_no_paging()
-    // resolves here too.
-    public function OriginsCollectionResponseIpRangeNoPaging($data = null)
-    {
-        require_once __DIR__ . '/entity/origins_collection_response_ip_range_no_paging_entity.php';
-        if ($data === null) {
-            if ($this->_origins_collection_response_ip_range_no_paging === null) {
-                $this->_origins_collection_response_ip_range_no_paging = new OriginsCollectionResponseIpRangeNoPagingEntity($this, null);
-            }
-            return $this->_origins_collection_response_ip_range_no_paging;
-        }
-        return new OriginsCollectionResponseIpRangeNoPagingEntity($this, $data);
-    }
-
-
     private $_origins_collection_response_webhook_subscription_no_paging = null;
 
     // Canonical facade: $client->OriginsCollectionResponseWebhookSubscriptionNoPaging()->list() / ->load(["id" => ...]).
@@ -413,21 +395,39 @@ class HubspotMetaSDK
     }
 
 
-    private $_origins_webhook_subscription = null;
+    private $_origins_ip_range = null;
 
-    // Canonical facade: $client->OriginsWebhookSubscription()->list() / ->load(["id" => ...]).
-    // PHP method names are case-insensitive, so lowercase $client->origins_webhook_subscription()
+    // Canonical facade: $client->OriginsIpRange()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->origins_ip_range()
     // resolves here too.
-    public function OriginsWebhookSubscription($data = null)
+    public function OriginsIpRange($data = null)
     {
-        require_once __DIR__ . '/entity/origins_webhook_subscription_entity.php';
+        require_once __DIR__ . '/entity/origins_ip_range_entity.php';
         if ($data === null) {
-            if ($this->_origins_webhook_subscription === null) {
-                $this->_origins_webhook_subscription = new OriginsWebhookSubscriptionEntity($this, null);
+            if ($this->_origins_ip_range === null) {
+                $this->_origins_ip_range = new OriginsIpRangeEntity($this, null);
             }
-            return $this->_origins_webhook_subscription;
+            return $this->_origins_ip_range;
         }
-        return new OriginsWebhookSubscriptionEntity($this, $data);
+        return new OriginsIpRangeEntity($this, $data);
+    }
+
+
+    private $_webhook_subscription = null;
+
+    // Canonical facade: $client->WebhookSubscription()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->webhook_subscription()
+    // resolves here too.
+    public function WebhookSubscription($data = null)
+    {
+        require_once __DIR__ . '/entity/webhook_subscription_entity.php';
+        if ($data === null) {
+            if ($this->_webhook_subscription === null) {
+                $this->_webhook_subscription = new WebhookSubscriptionEntity($this, null);
+            }
+            return $this->_webhook_subscription;
+        }
+        return new WebhookSubscriptionEntity($this, $data);
     }
 
 

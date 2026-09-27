@@ -1,0 +1,32 @@
+# BasicOriginsCollectionResponseWebhookSubscriptionNoPagingFlow
+
+main: kit: flow: BasicOriginsCollectionResponseWebhookSubscriptionNoPagingFlow:
+{
+  entity: "origins_collection_response_webhook_subscription_no_paging",
+  kind: "basic",
+  name: "BasicOriginsCollectionResponseWebhookSubscriptionNoPagingFlow",
+  step: [
+    {
+      i: {
+        ref: "origins_collection_response_webhook_subscription_no_paging_ref01",
+        srcdatavar: "origins_collection_response_webhook_subscription_no_paging_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "origins_collection_response_webhook_subscription_no_paging01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-origins_collection_response_webhook_subscription_no_paging_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicOriginsCollectionResponseWebhookSubscriptionNoPagingFlow"
+}

@@ -319,22 +319,22 @@ class HubspotMetaSDK:
         return BasicEntity(self, data)
 
 
-    def OriginsCollectionResponseIpRangeNoPaging(self, data=None) -> "OriginsCollectionResponseIpRangeNoPagingEntity":
-        """Entity factory: client.OriginsCollectionResponseIpRangeNoPaging().list() / client.OriginsCollectionResponseIpRangeNoPaging().load({"id": ...})."""
-        from hubspotmeta_sdk.entity.origins_collection_response_ip_range_no_paging_entity import OriginsCollectionResponseIpRangeNoPagingEntity
-        return OriginsCollectionResponseIpRangeNoPagingEntity(self, data)
-
-
     def OriginsCollectionResponseWebhookSubscriptionNoPaging(self, data=None) -> "OriginsCollectionResponseWebhookSubscriptionNoPagingEntity":
         """Entity factory: client.OriginsCollectionResponseWebhookSubscriptionNoPaging().list() / client.OriginsCollectionResponseWebhookSubscriptionNoPaging().load({"id": ...})."""
         from hubspotmeta_sdk.entity.origins_collection_response_webhook_subscription_no_paging_entity import OriginsCollectionResponseWebhookSubscriptionNoPagingEntity
         return OriginsCollectionResponseWebhookSubscriptionNoPagingEntity(self, data)
 
 
-    def OriginsWebhookSubscription(self, data=None) -> "OriginsWebhookSubscriptionEntity":
-        """Entity factory: client.OriginsWebhookSubscription().list() / client.OriginsWebhookSubscription().load({"id": ...})."""
-        from hubspotmeta_sdk.entity.origins_webhook_subscription_entity import OriginsWebhookSubscriptionEntity
-        return OriginsWebhookSubscriptionEntity(self, data)
+    def OriginsIpRange(self, data=None) -> "OriginsIpRangeEntity":
+        """Entity factory: client.OriginsIpRange().list() / client.OriginsIpRange().load({"id": ...})."""
+        from hubspotmeta_sdk.entity.origins_ip_range_entity import OriginsIpRangeEntity
+        return OriginsIpRangeEntity(self, data)
+
+
+    def WebhookSubscription(self, data=None) -> "WebhookSubscriptionEntity":
+        """Entity factory: client.WebhookSubscription().list() / client.WebhookSubscription().load({"id": ...})."""
+        from hubspotmeta_sdk.entity.webhook_subscription_entity import WebhookSubscriptionEntity
+        return WebhookSubscriptionEntity(self, data)
 
 
 
@@ -366,6 +366,6 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from hubspotmeta_sdk.entity.advanced_entity import AdvancedEntity
     from hubspotmeta_sdk.entity.basic_entity import BasicEntity
-    from hubspotmeta_sdk.entity.origins_collection_response_ip_range_no_paging_entity import OriginsCollectionResponseIpRangeNoPagingEntity
     from hubspotmeta_sdk.entity.origins_collection_response_webhook_subscription_no_paging_entity import OriginsCollectionResponseWebhookSubscriptionNoPagingEntity
-    from hubspotmeta_sdk.entity.origins_webhook_subscription_entity import OriginsWebhookSubscriptionEntity
+    from hubspotmeta_sdk.entity.origins_ip_range_entity import OriginsIpRangeEntity
+    from hubspotmeta_sdk.entity.webhook_subscription_entity import WebhookSubscriptionEntity

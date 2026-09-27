@@ -150,7 +150,7 @@ Meta-commands use the `/` prefix (everything else on a line is evaluated as boru
 
 The 5 entities this SDK exposes (any is valid as `<entity>`):
 
-advanced basic origins_collection_response_ip_range_no_paging origins_collection_response_webhook_subscription_no_paging origins_webhook_subscription
+advanced basic origins_collection_response_webhook_subscription_no_paging origins_ip_range webhook_subscription
 
 ## Explanation
 

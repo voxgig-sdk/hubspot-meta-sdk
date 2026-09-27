@@ -42,9 +42,9 @@ class ReadmeExamplesTest extends TestCase
     private const ENTITIES = [
         "Advanced" => "advanced",
         "Basic" => "basic",
-        "OriginsCollectionResponseIpRangeNoPaging" => "origins_collection_response_ip_range_no_paging",
         "OriginsCollectionResponseWebhookSubscriptionNoPaging" => "origins_collection_response_webhook_subscription_no_paging",
-        "OriginsWebhookSubscription" => "origins_webhook_subscription",
+        "OriginsIpRange" => "origins_ip_range",
+        "WebhookSubscription" => "webhook_subscription",
     ];
 
     // Documented SDK method names — used only to recognise the NARROW

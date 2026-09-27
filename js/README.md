@@ -26,7 +26,7 @@ loading a specific record.
 ### Create a Client
 
 ```js
-const { HubspotMetaSDK } = require('@voxgig-sdk/hubspot-meta-js')
+const { HubspotMetaSDK } = require('@voxgig-sdk/hubspot-meta-sdk-js')
 
 const client = new HubspotMetaSDK({
   apikey: process.env.HUBSPOT_META_APIKEY,
@@ -66,8 +66,8 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const originscollectionresponsewebhooksubscriptionnopaging = await client.OriginsCollectionResponseWebhookSubscriptionNoPaging().load({ app_id: "example" })
-  console.log(originscollectionresponsewebhooksubscriptionnopaging)
+  const basic = await client.Basic().load()
+  console.log(basic)
 } catch (err) {
   console.error('load failed:', err)
 }
@@ -133,10 +133,10 @@ Create a mock client for unit testing — no server required:
 ```js
 const client = HubspotMetaSDK.test()
 
-const originscollectionresponsewebhooksubscriptionnopaging = await client.OriginsCollectionResponseWebhookSubscriptionNoPaging().load({ app_id: 'example_app_id' })
-// originscollectionresponsewebhooksubscriptionnopaging is the entity, populated with mock response data
-// — call originscollectionresponsewebhooksubscriptionnopaging.data() for the record itself
-console.log(originscollectionresponsewebhooksubscriptionnopaging)
+const basic = await client.Basic().load()
+// basic is the entity, populated with mock response data
+// — call basic.data() for the record itself
+console.log(basic)
 ```
 
 You can also use the instance method:
@@ -151,14 +151,14 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```js
-const entity = client.OriginsCollectionResponseWebhookSubscriptionNoPaging()
+const entity = client.Basic()
 
 // First call runs the operation and stores its result
-await entity.load({ app_id: 'example_app_id' })
+await entity.load()
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data)
+console.log(data.id)
 ```
 
 ### Add custom middleware
@@ -228,9 +228,9 @@ new HubspotMetaSDK(options?)
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
 | `Advanced(data?)` | `AdvancedEntity` | Create an Advanced entity instance. |
 | `Basic(data?)` | `BasicEntity` | Create a Basic entity instance. |
-| `OriginsCollectionResponseIpRangeNoPaging(data?)` | `OriginsCollectionResponseIpRangeNoPagingEntity` | Create an OriginsCollectionResponseIpRangeNoPaging entity instance. |
 | `OriginsCollectionResponseWebhookSubscriptionNoPaging(data?)` | `OriginsCollectionResponseWebhookSubscriptionNoPagingEntity` | Create an OriginsCollectionResponseWebhookSubscriptionNoPaging entity instance. |
-| `OriginsWebhookSubscription(data?)` | `OriginsWebhookSubscriptionEntity` | Create an OriginsWebhookSubscription entity instance. |
+| `OriginsIpRange(data?)` | `OriginsIpRangeEntity` | Create an OriginsIpRange entity instance. |
+| `WebhookSubscription(data?)` | `WebhookSubscriptionEntity` | Create a WebhookSubscription entity instance. |
 | `tester(testopts?, sdkopts?)` | `HubspotMetaSDK` | Create a test-mode client instance. |
 
 #### Static methods
@@ -320,7 +320,17 @@ Operations: load, remove.
 
 API path: `/meta/network-origins/2026-09/ip-ranges/simple`
 
-#### OriginsCollectionResponseIpRangeNoPaging
+#### OriginsCollectionResponseWebhookSubscriptionNoPaging
+
+| Field | Description |
+| --- | --- |
+| `results` | An array of webhook subscriptions. |
+
+Operations: load.
+
+API path: `/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}`
+
+#### OriginsIpRange
 
 | Field | Description |
 | --- | --- |
@@ -333,17 +343,7 @@ Operations: list.
 
 API path: `/meta/network-origins/2026-09/ip-ranges`
 
-#### OriginsCollectionResponseWebhookSubscriptionNoPaging
-
-| Field | Description |
-| --- | --- |
-| `results` | An array of webhook subscriptions. |
-
-Operations: load.
-
-API path: `/meta/network-origins/2026-09/ip-ranges/webhook-subscriptions/{appId}`
-
-#### OriginsWebhookSubscription
+#### WebhookSubscription
 
 | Field | Description |
 | --- | --- |
@@ -403,32 +403,6 @@ const basic = await client.Basic().load()
 ```
 
 
-### OriginsCollectionResponseIpRangeNoPaging
-
-Create an instance: `const origins_collection_response_ip_range_no_paging = client.OriginsCollectionResponseIpRangeNoPaging()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list(match)` | List entities matching the criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `cidr` | `string` | The CIDR notation representing the IP range. |
-| `description` | `string` | A description of the IP range. |
-| `direction` | `string` | The direction of the IP traffic, which can be INGRESS or EGRESS. |
-| `service` | `string` | The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING. |
-
-#### Example: List
-
-```ts
-const origins_collection_response_ip_range_no_pagings = await client.OriginsCollectionResponseIpRangeNoPaging().list()
-```
-
-
 ### OriginsCollectionResponseWebhookSubscriptionNoPaging
 
 Create an instance: `const origins_collection_response_webhook_subscription_no_paging = client.OriginsCollectionResponseWebhookSubscriptionNoPaging()`
@@ -452,9 +426,35 @@ const origins_collection_response_webhook_subscription_no_paging = await client.
 ```
 
 
-### OriginsWebhookSubscription
+### OriginsIpRange
 
-Create an instance: `const origins_webhook_subscription = client.OriginsWebhookSubscription()`
+Create an instance: `const origins_ip_range = client.OriginsIpRange()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list(match)` | List entities matching the criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `cidr` | `string` | The CIDR notation representing the IP range. |
+| `description` | `string` | A description of the IP range. |
+| `direction` | `string` | The direction of the IP traffic, which can be INGRESS or EGRESS. |
+| `service` | `string` | The service associated with the IP range, such as EMAIL, API, DNS, or WEB_SCRAPING. |
+
+#### Example: List
+
+```ts
+const origins_ip_ranges = await client.OriginsIpRange().list()
+```
+
+
+### WebhookSubscription
+
+Create an instance: `const webhook_subscription = client.WebhookSubscription()`
 
 #### Operations
 
@@ -472,7 +472,7 @@ Create an instance: `const origins_webhook_subscription = client.OriginsWebhookS
 #### Example: Create
 
 ```ts
-const origins_webhook_subscription = await client.OriginsWebhookSubscription().create({
+const webhook_subscription = await client.WebhookSubscription().create({
   id: 'example_id',
   webhookUrl: 'example_webhookUrl',
 })
@@ -489,14 +489,14 @@ above:
 
 | Feature | What it does |
 |---|---|
-| [`debug`](#debug) | Request/response capture ring buffer for debugging |
-| [`idempotency`](#idempotency) | Idempotency keys for safe retries of mutating operations |
-| [`metrics`](#metrics) | Statistics capture: per-operation counters and latency |
-| [`paging`](#paging) | Pagination signals for list operations |
-| [`ratelimit`](#ratelimit) | Client-side rate limiting via a token bucket |
-| [`retry`](#retry) | Automatic retry of transient failures with exponential backoff |
-| [`test`](#test) | In-memory mock transport for testing without a live server |
-| [`timeout`](#timeout) | Per-request timeout with transport abort |
+| [`debug`](#debug) | Debug capture |
+| [`idempotency`](#idempotency) | Idempotency |
+| [`metrics`](#metrics) | Metrics |
+| [`paging`](#paging) | Paging |
+| [`ratelimit`](#ratelimit) | Rate limiting |
+| [`retry`](#retry) | Retry |
+| [`test`](#test) | Test transport |
+| [`timeout`](#timeout) | Timeout |
 
 > **Order matters for `ratelimit`, `retry`, `timeout`.** These wrap the
 > transport, so each one wraps whatever is already installed: the order you
@@ -505,7 +505,7 @@ above:
 
 ### debug
 
-Request/response capture ring buffer for debugging.
+Debug capture.
 
 | Option | Default |
 |---|---|
@@ -517,7 +517,7 @@ Set `feature.debug.active` to enable it, then override any of the options above.
 
 ### idempotency
 
-Idempotency keys for safe retries of mutating operations.
+Idempotency.
 
 | Option | Default |
 |---|---|
@@ -530,7 +530,7 @@ Set `feature.idempotency.active` to enable it, then override any of the options 
 
 ### metrics
 
-Statistics capture: per-operation counters and latency.
+Metrics.
 
 | Option | Default |
 |---|---|
@@ -540,7 +540,7 @@ Set `feature.metrics.active` to enable it, then override any of the options abov
 
 ### paging
 
-Pagination signals for list operations.
+Paging.
 
 | Option | Default |
 |---|---|
@@ -556,7 +556,7 @@ Set `feature.paging.active` to enable it, then override any of the options above
 
 ### ratelimit
 
-Client-side rate limiting via a token bucket.
+Rate limiting.
 
 | Option | Default |
 |---|---|
@@ -572,7 +572,7 @@ activated earlier.
 
 ### retry
 
-Automatic retry of transient failures with exponential backoff.
+Retry.
 
 | Option | Default |
 |---|---|
@@ -591,7 +591,7 @@ activated earlier.
 
 ### test
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 | Option | Default |
 |---|---|
@@ -601,7 +601,7 @@ Set `feature.test.active` to enable it, then override any of the options above.
 
 ### timeout
 
-Per-request timeout with transport abort.
+Timeout.
 
 | Option | Default |
 |---|---|
@@ -653,14 +653,14 @@ a function that receives the context.
 
 The SDK ships with built-in features:
 
-- **DebugFeature**: Request/response capture ring buffer for debugging
-- **IdempotencyFeature**: Idempotency keys for safe retries of mutating operations
-- **MetricsFeature**: Statistics capture: per-operation counters and latency
-- **PagingFeature**: Pagination signals for list operations
-- **RatelimitFeature**: Client-side rate limiting via a token bucket
-- **RetryFeature**: Automatic retry of transient failures with exponential backoff
-- **TestFeature**: In-memory mock transport for testing without a live server
-- **TimeoutFeature**: Per-request timeout with transport abort
+- **DebugFeature**: Debug capture
+- **IdempotencyFeature**: Idempotency
+- **MetricsFeature**: Metrics
+- **PagingFeature**: Paging
+- **RatelimitFeature**: Rate limiting
+- **RetryFeature**: Retry
+- **TestFeature**: Test transport
+- **TimeoutFeature**: Timeout
 
 Features are initialized in order. Hooks fire in the order features
 were added, so later features can override earlier ones.
@@ -680,7 +680,7 @@ hubspot-meta/
 Import the SDK from the package root:
 
 ```js
-const { HubspotMetaSDK } = require('@voxgig-sdk/hubspot-meta-js')
+const { HubspotMetaSDK } = require('@voxgig-sdk/hubspot-meta-sdk-js')
 ```
 
 ### Entity state
@@ -690,11 +690,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const originscollectionresponsewebhooksubscriptionnopaging = client.OriginsCollectionResponseWebhookSubscriptionNoPaging()
-await originscollectionresponsewebhooksubscriptionnopaging.load({ app_id: "example" })
+const basic = client.Basic()
+await basic.load()
 
-// originscollectionresponsewebhooksubscriptionnopaging.data() now returns the originscollectionresponsewebhooksubscriptionnopaging data from the last `load`
-// originscollectionresponsewebhooksubscriptionnopaging.match() returns the last match criteria
+// basic.data() now returns the basic data from the last `load`
+// basic.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

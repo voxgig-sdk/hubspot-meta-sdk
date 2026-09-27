@@ -1,7 +1,0 @@
-# Flows
-
-@"./BasicAdvancedFlow.aon"
-@"./BasicBasicFlow.aon"
-@"./BasicOriginsCollectionResponseIpRangeNoPagingFlow.aon"
-@"./BasicOriginsCollectionResponseWebhookSubscriptionNoPagingFlow.aon"
-@"./BasicOriginsWebhookSubscriptionFlow.aon"

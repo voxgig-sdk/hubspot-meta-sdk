@@ -20,7 +20,7 @@ import (
 const prompt = "hubspot-meta"
 
 // entitiesHelp is the space-separated entity list shown by /help.
-const entitiesHelp = "advanced basic origins_collection_response_ip_range_no_paging origins_collection_response_webhook_subscription_no_paging origins_webhook_subscription"
+const entitiesHelp = "advanced basic origins_collection_response_webhook_subscription_no_paging origins_ip_range webhook_subscription"
 
 func main() {
 	os.Exit(run(os.Args[1:], os.Stdin, os.Stdout, os.Stderr))

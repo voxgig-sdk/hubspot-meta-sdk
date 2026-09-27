@@ -24,9 +24,9 @@ var NewAdvancedEntityFunc func(client *HubspotMetaSDK, entopts map[string]any) H
 
 var NewBasicEntityFunc func(client *HubspotMetaSDK, entopts map[string]any) HubspotMetaEntity
 
-var NewOriginsCollectionResponseIpRangeNoPagingEntityFunc func(client *HubspotMetaSDK, entopts map[string]any) HubspotMetaEntity
-
 var NewOriginsCollectionResponseWebhookSubscriptionNoPagingEntityFunc func(client *HubspotMetaSDK, entopts map[string]any) HubspotMetaEntity
 
-var NewOriginsWebhookSubscriptionEntityFunc func(client *HubspotMetaSDK, entopts map[string]any) HubspotMetaEntity
+var NewOriginsIpRangeEntityFunc func(client *HubspotMetaSDK, entopts map[string]any) HubspotMetaEntity
+
+var NewWebhookSubscriptionEntityFunc func(client *HubspotMetaSDK, entopts map[string]any) HubspotMetaEntity
 

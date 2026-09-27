@@ -22,7 +22,7 @@ import (
 // entries in a single compilation unit, and `compile` grew ~15 MB per fragment
 // to ~16 GB — the same superlinear-composite-literal blowup the L1 config data
 // path fixed for core/config.go. One shared var is O(1) in the snippet count.
-const testSeed = `map[string]any{"entity": map[string]any{"advanced": map[string]any{"example_id": map[string]any{"id": "example_id"}}, "basic": map[string]any{"example_id": map[string]any{"id": "example_id"}}, "origins_collection_response_ip_range_no_paging": map[string]any{"example_id": map[string]any{"id": "example_id"}}, "origins_collection_response_webhook_subscription_no_paging": map[string]any{"example_id": map[string]any{"id": "example_id"}}, "origins_webhook_subscription": map[string]any{"example_id": map[string]any{"id": "example_id"}}}}`
+const testSeed = `map[string]any{"entity": map[string]any{"advanced": map[string]any{"example_id": map[string]any{"id": "example_id"}}, "basic": map[string]any{"example_id": map[string]any{"id": "example_id"}}, "origins_collection_response_webhook_subscription_no_paging": map[string]any{"example_id": map[string]any{"id": "example_id"}}, "origins_ip_range": map[string]any{"example_id": map[string]any{"id": "example_id"}}, "webhook_subscription": map[string]any{"example_id": map[string]any{"id": "example_id"}}}}`
 
 // seedRef is how a snippet names the shared fixture; seedFile declares it.
 const seedRef = "readmeTestSeed"
